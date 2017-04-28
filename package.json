@@ -1,7 +1,7 @@
 {
-  "name": "hermes",
+  "name": "react-base-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "React base application with SSR",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
