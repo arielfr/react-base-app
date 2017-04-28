@@ -25,7 +25,8 @@ module.exports = {
 
     res.renderSync('index', {
       head: Head.rewind(),
-      app: stringApp
+      app: stringApp,
+      state: state
     });
   }
 };

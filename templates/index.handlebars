@@ -9,7 +9,13 @@
     </head>
     <body>
         {{#block "body"}}
-            {{{app}}}
+            <div id="root">
+                {{{app}}}
+            </div>
         {{/block}}
     </body>
+    <script type="application/javascript">
+        window.__PRELOADED_STATE__ = {{#stringify state}}{{/stringify}}
+    </script>
+    <script src="app.js"></script>
 </html>

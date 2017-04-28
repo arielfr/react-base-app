@@ -3,7 +3,7 @@
  */
 const React = require('react');
 const {Component} = require('react');
-const Layout = require('../components/Layout/Layout').default;
+const Layout = require('./components/Layout/Layout').default;
 
 class App extends Component {
   constructor(props) {
@@ -14,13 +14,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    alert('Cargo');
   }
 
   render() {
-      const content = (<div>
-          <p>Contenido</p>
-        </div>
-      );
+    const content = (<div>
+        <p onClick={this.click}>Contenido</p>
+      </div>
+    );
 
     return (
       <Layout userAgent={this.state.userAgent}>

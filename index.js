@@ -22,6 +22,7 @@ require('./routes/index')(app);
 
 // Serve static files
 app.use(express.static('public'));
+app.use(express.static('bundles'));
 
 app.listen(port, () => {
   console.log('App working on port: ' + port);
