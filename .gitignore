@@ -1,4 +1,5 @@
 # ============= App Ignore Folders =============
+.idea/
 bundles/
 
 # ============= Bower =============
