@@ -1,0 +1,231 @@
+.App {
+}
+
+#page-wrap {
+    background: white;
+}
+
+.App .header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+.App .header a {
+    color: black;
+    text-decoration: none;
+}
+
+.App .header h1 {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.App .header h2 {
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.App .header .social {
+}
+
+.App .header .social .twitter {
+    font-size: 20px;
+    color: #1da1f2;
+}
+
+.App .header .social .facebook {
+    font-size: 20px;
+    color: #4267B2;
+}
+
+.App .header .other span {
+    font-size: 12px;
+}
+
+.App .header .social span,
+.App .header .social a {
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .App .header h1 {
+        font-size: 34px;
+        margin-bottom: 5px;
+    }
+
+    .App .header h2 {
+        font-size: 12px;
+    }
+}
+
+.App .header p {
+    margin-bottom: 5px;
+}
+
+.App .section-navigation {
+    border-bottom: 1px solid #6f6f6f;
+}
+
+.App .section-navigation .navigation {
+    text-align: center;
+    margin-bottom: 0px;
+    list-style: none;
+    padding: 0px;
+}
+
+.App .section-navigation .navigation li {
+    font-size: 12px;
+    font-weight: 300;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: top;
+    text-transform: capitalize;
+    color: #000;
+}
+
+.App .section-navigation .navigation li a {
+    display: inline-block;
+    margin: 5px 2px 5px 0;
+    padding: 0 4px;
+    color: black;
+}
+
+/* ---- Loader ---- */
+.spinner {
+    margin: 100px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.cube1, .cube2 {
+    background-color: #333;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+    animation: sk-cubemove 1.8s infinite ease-in-out;
+}
+
+.cube2 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+@-webkit-keyframes sk-cubemove {
+    25% {
+        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5)
+    }
+    50% {
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
+    }
+    75% {
+        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5)
+    }
+    100% {
+        -webkit-transform: rotate(-360deg)
+    }
+}
+
+@keyframes sk-cubemove {
+    25% {
+        transform: translateX(42px) rotate(-90deg) scale(0.5);
+        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    }
+    50% {
+        transform: translateX(42px) translateY(42px) rotate(-179deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    }
+    50.1% {
+        transform: translateX(42px) translateY(42px) rotate(-180deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    }
+    75% {
+        transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    }
+    100% {
+        transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+    }
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+    position: absolute;
+    width: 36px;
+    height: 30px;
+    left: 36px;
+    top: 36px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+    background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+    height: 24px;
+    width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+    background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+    fill: #373a47;
+}
+
+.bm-item-list h3{
+    margin-top: 10px;
+    color: white;
+}
+
+.bm-item-list h3:first-child{
+    margin-top: 0px;
+}
+
+/* Wrapper for item list */
+.bm-item-list,
+.bm-item-list a{
+    color: #d4d4d4;
+    padding: 5px 10px;
+}
+
+.bm-item-list {
+    padding: 0px;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .bm-burger-button {
+        position: absolute;
+        width: 30px;
+        height: 24px;
+        left: 15px;
+        top: 15px;
+    }
+}

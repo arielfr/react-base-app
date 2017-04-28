@@ -1,0 +1,16 @@
+{
+  "app": {
+    "port": 3000,
+    "api": {
+      "host": "localhost"
+    }
+  },
+  "mongo": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "hermes"
+  },
+  "handlebars": {
+    "cache": false
+  }
+}

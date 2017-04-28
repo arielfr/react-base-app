@@ -1,0 +1,31 @@
+{
+  "name": "hermes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "babel-core": "^6.22.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "bluebird": "^3.5.0",
+    "config": "^1.25.1",
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "express-handlebars-layouts": "git@github.com:arielfr/express-handlebars-layouts.git",
+    "import-export": "^1.0.1",
+    "moment": "^2.18.1",
+    "react": "^15.4.2",
+    "react-declarative-head": "^1.0.5",
+    "react-dom": "^15.4.2",
+    "swag": "^0.7.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.22.0"
+  }
+}
