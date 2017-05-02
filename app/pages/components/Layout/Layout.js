@@ -11,8 +11,8 @@ class Layout extends Component {
   }
 
   render() {
-    const pageTitle = this.props.pageTitle || 'Hermes';
-    const pageDescription = this.props.pageDescription || 'Email Sender';
+    const pageTitle = this.props.pageTitle || 'React Base App';
+    const pageDescription = this.props.pageDescription || 'React Base Application With Hot Module Replacing';
 
     return (
       <div className="App">
