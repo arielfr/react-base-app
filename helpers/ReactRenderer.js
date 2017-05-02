@@ -3,9 +3,7 @@
  */
 // Load transpiler to support react code
 require('import-export');
-require('babel-core/register')({
-  "presets": ["es2015", "react"]
-});
+require('babel-core/register')();
 
 const react = require('react');
 const reactDomServer = require('react-dom/server');
