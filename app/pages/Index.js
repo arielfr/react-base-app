@@ -4,7 +4,7 @@
 const React = require('react');
 const {Component} = require('react');
 const Layout = require('./components/Layout/Layout').default;
-const Testing = require('./components/Number').default;
+const Number = require('./components/Number').default;
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     const content = (<div>
         <p>Contenido</p>
-        <Testing/>
+        <Number/>
       </div>
     );
 
@@ -33,4 +33,4 @@ class App extends Component {
   }
 }
 
-module.exports = App;
+export default App;
