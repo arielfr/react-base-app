@@ -1,17 +1,23 @@
 /**
  * Created by arey on 4/28/17.
  */
+const config = require('config');
+const webpack = require('webpack');
 const path = require('path');
 const baseDirectory = __dirname;
+
+const port = config.get('app.port');
 
 module.exports = {
   // the entry file for the bundle
   entry: {
-    index: path.join(baseDirectory, '/app/client/index.js')
+    'index': [path.join(baseDirectory, '/app/client/index.js'), 'webpack-hot-middleware/client']
   },
   // the bundle file we will get in the result
   output: {
+    publicPath: 'http://localhost:' + port + '/',
     path: path.join(baseDirectory, 'bundles'),
+    //path: '/',
     filename: '[name].js',
   },
   module: {
@@ -28,5 +34,10 @@ module.exports = {
         ]
       }
     }]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+  target: 'web'
 };

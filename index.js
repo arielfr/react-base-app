@@ -2,11 +2,15 @@
  * Created by arey on 4/28/17.
  */
 const config = require('config');
-const path = require('path');
 const fs = require('fs');
 const express = require('express');
 
-const port = process.env.PORT || config.get('app.port');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const port = config.get('app.port');
 
 const app = express();
 
@@ -22,7 +26,20 @@ require('./routes/index')(app);
 
 // Serve static files
 app.use(express.static('public'));
-app.use(express.static('bundles'));
+//app.use(express.static('bundles'));
+
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: 'http://localhost:' + port,
+  stats: {
+    colors: true
+  }
+}));
+
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}));
 
 app.listen(port, () => {
   console.log('App working on port: ' + port);
