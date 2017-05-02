@@ -37,9 +37,7 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }));
 
-app.use(webpackHotMiddleware(compiler, {
-  log: console.log
-}));
+app.use(webpackHotMiddleware(compiler));
 
 app.listen(port, () => {
   console.log('App working on port: ' + port);
