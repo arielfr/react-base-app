@@ -4,8 +4,7 @@
 // Load transpiler to support react code
 require('import-export');
 require('babel-core/register')({
-  "presets": ["es2015", "react"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["es2015", "react"]
 });
 
 const react = require('react');

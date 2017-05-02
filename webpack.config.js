@@ -28,12 +28,7 @@ module.exports = {
         include: path.join(baseDirectory, '/app'),
         loader: 'babel-loader',
         query: {
-          presets: ["react", "es2015"],
-          plugins: [
-            'transform-react-constant-elements',
-            'transform-react-inline-elements',
-            'react-hot-loader/babel'
-          ]
+          presets: ["react", "es2015"]
         }
       }
     ]
