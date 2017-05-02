@@ -11,7 +11,7 @@ const port = config.get('app.port');
 module.exports = {
   // the entry file for the bundle
   entry: {
-    'index': [path.join(baseDirectory, '/app/client/index.js'), 'webpack-hot-middleware/client', 'react-hot-loader/patch']
+    'index': ['react-hot-loader/patch', 'webpack-hot-middleware/client', path.join(baseDirectory, '/app/client/index.js')]
   },
   // the bundle file we will get in the result
   output: {
