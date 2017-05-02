@@ -4,6 +4,7 @@
 const React = require('react');
 const {Component} = require('react');
 const Layout = require('./components/Layout/Layout').default;
+const Testing = require('./components/Number').default;
 
 class App extends Component {
   constructor(props) {
@@ -14,21 +15,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('cargo...')
-  }
-
-  handleClick() {
-    let number = this.state.number;
-
-    this.setState({
-      number: number === undefined ? 1 : (number + 1)
-    });
+    //console.log('cargo...')
   }
 
   render() {
     const content = (<div>
-        <p onClick={this.handleClick.bind(this)}>Contenido</p>
-        <p>{this.state.number === undefined ? 0 : this.state.number}</p>
+        <p>Contenido</p>
+        <Testing/>
       </div>
     );
 
