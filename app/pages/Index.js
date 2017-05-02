@@ -14,7 +14,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //alert('Cargo 4');
     console.log('cargo...')
   }
 
@@ -29,7 +28,7 @@ class App extends Component {
   render() {
     const content = (<div>
         <p onClick={this.handleClick.bind(this)}>Contenido</p>
-        <p>{this.state.number}</p>
+        <p>{this.state.number === undefined ? 0 : this.state.number}</p>
       </div>
     );
 

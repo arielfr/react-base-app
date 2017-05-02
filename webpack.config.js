@@ -28,11 +28,11 @@ module.exports = {
         include: path.join(baseDirectory, '/app'),
         loader: 'babel-loader',
         query: {
-          presets: ["react", ["es2015", {modules: false}]],
+          presets: ["react", "es2015"],
           plugins: [
-            'react-hot-loader/babel',
             'transform-react-constant-elements',
             'transform-react-inline-elements',
+            'react-hot-loader/babel'
           ]
         }
       }

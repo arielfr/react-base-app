@@ -4,16 +4,24 @@
 /**
  * Module dependencies
  */
+
+require('react-hot-loader/patch');
+
 const React = require('react');
 const ReactDOM = require('react-dom');
-const IndexView = require('../pages/Index');
-
 const {AppContainer} = require('react-hot-loader');
-const patch = require('react-hot-loader/patch');
+const IndexView = require('../pages/Index');
 
 /**
  * Mount DemoView on client
  */
+ReactDOM.render(
+  <AppContainer>
+    <IndexView initialState={window.__PRELOADED_STATE__}/>
+  </AppContainer>,
+  document.getElementById('root')
+);
+
 if (module.hot) {
   module.hot.accept('../pages/Index', () => {
     // This is not needed if we use ES2015 Imports (But I use required)
@@ -26,11 +34,4 @@ if (module.hot) {
       document.getElementById('root')
     )
   });
-} else {
-  ReactDOM.render(
-    <AppContainer>
-      <IndexView initialState={window.__PRELOADED_STATE__}/>
-    </AppContainer>,
-    document.getElementById('root')
-  );
 }
