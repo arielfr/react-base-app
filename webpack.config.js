@@ -11,7 +11,7 @@ const port = config.get('app.port');
 module.exports = {
   // the entry file for the bundle
   entry: {
-    'index': [path.join(baseDirectory, '/app/client/index.js'), 'webpack-hot-middleware/client']
+    'index': [path.join(baseDirectory, '/app/client/index.js'), 'webpack-hot-middleware/client', 'react-hot-loader/patch']
   },
   // the bundle file we will get in the result
   output: {
@@ -22,18 +22,21 @@ module.exports = {
   },
   module: {
     // apply loaders to files that meet given conditions
-    loaders: [{
-      test: /\.js?$/,
-      include: path.join(baseDirectory, '/app'),
-      loader: 'babel-loader',
-      query: {
-        presets: ["react", "es2015"],
-        plugins: [
-          'transform-react-constant-elements',
-          'transform-react-inline-elements'
-        ]
+    loaders: [
+      {
+        test: /\.js?$/,
+        include: path.join(baseDirectory, '/app'),
+        loader: 'babel-loader',
+        query: {
+          presets: ["react", ["es2015", {modules: false}]],
+          plugins: [
+            'react-hot-loader/babel',
+            'transform-react-constant-elements',
+            'transform-react-inline-elements',
+          ]
+        }
       }
-    }]
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
