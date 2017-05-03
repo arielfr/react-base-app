@@ -2,6 +2,8 @@
 
 This is a base React Application with Hot Module Replacement.
 
+**Production Ready**
+
 ### Structure
 
 ### App
@@ -39,6 +41,8 @@ If you want to develop, just:
 ```bash
 node index.js
 ```
+
+## Scripts + Production
 
 If you want to deploy the application to production, you need to build the application and the star the application
 
