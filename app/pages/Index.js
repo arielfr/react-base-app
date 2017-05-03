@@ -4,7 +4,7 @@
 const React = require('react');
 const {Component} = require('react');
 const Layout = require('./components/Layout/Layout').default;
-const Number = require('./components/Number').default;
+const Number = require('./components/Number/Number').default;
 
 class App extends Component {
   constructor(props) {

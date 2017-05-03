@@ -11,8 +11,7 @@ const port = config.get('app.port');
 const baseDirectory = __dirname;
 
 const extractLess = new ExtractTextPlugin({
-  filename: "[name].css",
-  disable: environmentHelper.isDevelopment()
+  filename: "[name].css"
 });
 
 module.exports = {
@@ -35,7 +34,7 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.less$/,
+        test: /\.(css|less)$/,
         use: extractLess.extract({
           use: [{
             loader: "css-loader"

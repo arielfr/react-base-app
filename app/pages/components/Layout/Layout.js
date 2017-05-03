@@ -5,7 +5,6 @@ const React = require('react');
 const {Component} = require('react');
 const Head = require('react-declarative-head');
 
-require('./Layout.less');
 
 class Layout extends Component {
   constructor(props) {
