@@ -5,6 +5,8 @@
 require('import-export');
 require('babel-core/register')();
 
+const fs = require('fs');
+const path = require('path');
 const react = require('react');
 const reactDomServer = require('react-dom/server');
 const renderToString = reactDomServer.renderToString;
@@ -15,10 +17,22 @@ module.exports = {
   renderPage: function (req, res, page, inheritState) {
     const pagePath = '../app/pages/' + page;
     const ReactComponentPage = require(pagePath).default;
+    // Assets names to be imported on the HTML
+    let scriptAssetPath = page.toLowerCase() + '.js';
+    let styleAssetPath  = page.toLowerCase() + '.css';
 
     //Remove the require cache to prevent server & client inconsistencies
     if (environmentHelper.isDevelopment()) {
       this.deleteRequireCache(pagePath);
+    }else{
+      // Get the real asset names
+      try{
+        const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
+        scriptAssetPath = manifestFile[scriptAssetPath];
+        styleAssetPath = manifestFile[styleAssetPath];
+      }catch(e){
+        throw new Error('Error reading manifest file: ' + e);
+      }
     }
 
     const state = Object.assign({
@@ -33,7 +47,8 @@ module.exports = {
       head: Head.rewind(),
       app: stringApp,
       state: state,
-      script: page.toLowerCase()
+      style: styleAssetPath,
+      script: scriptAssetPath
     });
   },
   deleteRequireCache: function (path) {

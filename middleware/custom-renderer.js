@@ -2,7 +2,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const config = require('config');
 
-module.exports = function (app, startUpTimeStamp) {
+module.exports = function (app) {
   const defaultModel = {
     favicon: 'favicon.ico'
   };
@@ -16,9 +16,6 @@ module.exports = function (app, startUpTimeStamp) {
 
     //Save user on model
     //model.user = req.user;
-
-    //Adding the timestamp for preventing browser cache
-    model.app_no_cache_assets = startUpTimeStamp;
 
     // Enable or disable Twak
     //model.twak = config.get('twak.enabled');

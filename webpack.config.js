@@ -8,12 +8,13 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CleanCSSPlugin = require('less-plugin-clean-css');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const port = config.get('app.port');
 const baseDirectory = __dirname;
 
 const extractLess = new ExtractTextPlugin({
-  filename: "[name].css"
+  filename: getOuputName('css')
 });
 
 module.exports = {
@@ -25,7 +26,7 @@ module.exports = {
     publicPath: 'http://localhost:' + port + '/',
     path: path.join(baseDirectory, 'bundles'),
     //path: '/',
-    filename: '[name].js',
+    filename: getOuputName('js'),
   },
   module: {
     // apply loaders to files that meet given conditions
@@ -107,7 +108,13 @@ function styleLoader() {
 }
 
 function pluginsToLoad() {
-  let plugins = [];
+  let plugins = [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(environmentHelper.getEnvironment())
+      }
+    })
+  ];
 
   // Always extract the CSS
   plugins.push(extractLess);
@@ -137,8 +144,14 @@ function pluginsToLoad() {
         screwIe8: true,
         sourceMap: false
       })
-    ])
+    ]);
+
+    plugins.push(new ManifestPlugin());
   }
 
   return plugins;
+}
+
+function getOuputName(extension) {
+  return environmentHelper.isDevelopment() ? ('[name].' + extension) : ('[name].[hash].' + extension);
 }
