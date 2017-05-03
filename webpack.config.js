@@ -32,7 +32,11 @@ module.exports = {
       {
         test: /\.js?$/,
         include: path.join(baseDirectory, '/app'),
-        loader: 'babel-loader'
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
       },
       styleLoader()
     ]
@@ -104,6 +108,7 @@ function styleLoader() {
 function pluginsToLoad() {
   let plugins = [];
 
+  // Always extract the CSS
   plugins.push(extractLess);
 
   if (environmentHelper.isDevelopment()) {
@@ -111,6 +116,19 @@ function pluginsToLoad() {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
     ]);
+  }else{
+    plugins = plugins.concat([
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+        output: {
+          comments: false
+        },
+        screwIe8: true,
+        sourceMap: false
+      })
+    ])
   }
 
   return plugins;
