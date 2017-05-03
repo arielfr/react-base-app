@@ -9,14 +9,23 @@ const react = require('react');
 const reactDomServer = require('react-dom/server');
 const renderToString = reactDomServer.renderToString;
 const Head = require('react-declarative-head');
+const environmentHelper = require('../helpers/EnvironmentHelper');
 
 module.exports = {
-  renderPage: (req, res, page, inheritState) => {
+  renderPage: function (req, res, page, inheritState) {
+    const pagePath = '../app/pages/' + page;
+    const ReactComponentPage = require(pagePath).default;
+
+    //Remove the require cache to prevent server & client inconsistencies
+    if (environmentHelper.isDevelopment()) {
+      this.deleteRequireCache(pagePath);
+    }
+
     const state = Object.assign({
       userAgent: req.headers['user-agent']
     }, inheritState);
 
-    const stringApp = renderToString(react.createElement(page, {
+    const stringApp = renderToString(react.createElement(ReactComponentPage, {
       initialState: state
     }));
 
@@ -25,5 +34,8 @@ module.exports = {
       app: stringApp,
       state: state
     });
+  },
+  deleteRequireCache: function (path) {
+    delete require.cache[require.resolve(path)]
   }
 };
