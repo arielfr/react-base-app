@@ -6,8 +6,8 @@ const ReactDOM = require('react-dom');
 const {AppContainer} = require('react-hot-loader');
 
 // You need to load the LESS here because this is the entry point on Webpack
-require('../pages/Index.less');
-const IndexView = require('../pages/Index').default;
+require('../pages/index/index.less');
+const IndexView = require('../pages/index/index').default;
 
 const render = Component => {
   ReactDOM.render(
@@ -21,8 +21,8 @@ const render = Component => {
 render(IndexView);
 
 if (module.hot) {
-  module.hot.accept('../pages/Index', () => {
-    const NextRootContainer = require('../pages/Index').default;
+  module.hot.accept('../pages/index/index', () => {
+    const NextRootContainer = require('../pages/index/index').default;
     render(NextRootContainer);
   });
 }

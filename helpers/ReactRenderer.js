@@ -15,7 +15,7 @@ const environmentHelper = require('../helpers/EnvironmentHelper');
 
 module.exports = {
   renderPage: function (req, res, page, inheritState) {
-    const pagePath = '../app/pages/' + page;
+    const pagePath = '../app/pages/' + page + '/index';
     const ReactComponentPage = require(pagePath).default;
     // Assets names to be imported on the HTML
     let scriptAssetPath = page.toLowerCase() + '.js';
@@ -28,8 +28,8 @@ module.exports = {
       // Get the real asset names
       try{
         const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-        scriptAssetPath = manifestFile[scriptAssetPath] || scriptAssetPath;
-        styleAssetPath = manifestFile[styleAssetPath] || styleAssetPath;
+        scriptAssetPath = manifestFile[scriptAssetPath] || '';
+        styleAssetPath = manifestFile[styleAssetPath] || '';
       }catch(e){
         throw new Error('Error reading manifest file: ' + e);
       }

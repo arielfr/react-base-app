@@ -6,6 +6,6 @@ const ReactRenderer = require('../helpers/ReactRenderer');
 module.exports = (app) => {
   app.get('/', (req, res) => {
     // Initial State
-    ReactRenderer.renderPage(req, res, 'Index', {});
+    ReactRenderer.renderPage(req, res, 'index', {});
   });
 };
