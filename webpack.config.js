@@ -5,7 +5,8 @@ const environmentHelper = require('./helpers/EnvironmentHelper');
 const config = require('config');
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanCSSPlugin = require('less-plugin-clean-css');
 
 const port = config.get('app.port');
 const baseDirectory = __dirname;
@@ -33,18 +34,7 @@ module.exports = {
         include: path.join(baseDirectory, '/app'),
         loader: 'babel-loader'
       },
-      {
-        test: /\.(css|less)$/,
-        use: extractLess.extract({
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "less-loader"
-          }],
-          // use style-loader in development
-          fallback: "style-loader"
-        })
-      }
+      styleLoader()
     ]
   },
   plugins: pluginsToLoad(),
@@ -81,12 +71,42 @@ function entryPoint(entry) {
   }
 }
 
+function styleLoader() {
+  let lessLoaderPlugins = [];
+
+  if(!environmentHelper.isDevelopment()){
+    lessLoaderPlugins.push(
+      new CleanCSSPlugin({
+        advanced: true,
+        minify: true
+      })
+    )
+  }
+
+  return {
+    test: /\.(css|less)$/,
+    use: extractLess.extract({
+      use: [{
+        loader: 'css-loader'
+      }, {
+        loader: 'autoprefixer-loader'
+      }, {
+        loader: 'less-loader',
+        options: {
+          plugins: lessLoaderPlugins
+        }
+      }],
+      fallback: 'style-loader'
+    })
+  }
+}
+
 function pluginsToLoad() {
   let plugins = [];
 
   plugins.push(extractLess);
 
-  if(environmentHelper.isDevelopment()){
+  if (environmentHelper.isDevelopment()) {
     plugins = plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
