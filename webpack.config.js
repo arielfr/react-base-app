@@ -5,9 +5,15 @@ const environmentHelper = require('./helpers/EnvironmentHelper');
 const config = require('config');
 const webpack = require('webpack');
 const path = require('path');
-const baseDirectory = __dirname;
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const port = config.get('app.port');
+const baseDirectory = __dirname;
+
+const extractLess = new ExtractTextPlugin({
+  filename: "[name].css",
+  disable: environmentHelper.isDevelopment()
+});
 
 module.exports = {
   entry: entryPoint({
@@ -22,11 +28,23 @@ module.exports = {
   },
   module: {
     // apply loaders to files that meet given conditions
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         include: path.join(baseDirectory, '/app'),
         loader: 'babel-loader'
+      },
+      {
+        test: /\.less$/,
+        use: extractLess.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "less-loader"
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
       }
     ]
   },
@@ -66,6 +84,8 @@ function entryPoint(entry) {
 
 function pluginsToLoad() {
   let plugins = [];
+
+  plugins.push(extractLess);
 
   if(environmentHelper.isDevelopment()){
     plugins = plugins.concat([
