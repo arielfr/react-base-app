@@ -29,10 +29,11 @@ module.exports = {
       initialState: state
     }));
 
-    res.renderSync('index', {
+    res.renderSync('application', {
       head: Head.rewind(),
       app: stringApp,
-      state: state
+      state: state,
+      script: page.toLowerCase()
     });
   },
   deleteRequireCache: function (path) {
