@@ -28,8 +28,8 @@ module.exports = {
       // Get the real asset names
       try{
         const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-        scriptAssetPath = manifestFile[scriptAssetPath];
-        styleAssetPath = manifestFile[styleAssetPath];
+        scriptAssetPath = manifestFile[scriptAssetPath] || scriptAssetPath;
+        styleAssetPath = manifestFile[styleAssetPath] || styleAssetPath;
       }catch(e){
         throw new Error('Error reading manifest file: ' + e);
       }
