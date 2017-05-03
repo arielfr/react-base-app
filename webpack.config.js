@@ -6,6 +6,7 @@ const config = require('config');
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CleanCSSPlugin = require('less-plugin-clean-css');
 
 const port = config.get('app.port');
@@ -117,6 +118,14 @@ function pluginsToLoad() {
       new webpack.NoEmitOnErrorsPlugin()
     ]);
   }else{
+    // This must be the first plugin
+    plugins.unshift(
+      new CleanWebpackPlugin([path.join(baseDirectory, 'bundles')], {
+        verbose: true,
+        allowExternal: true
+      })
+    );
+
     plugins = plugins.concat([
       new webpack.optimize.UglifyJsPlugin({
         compress: {
