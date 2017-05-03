@@ -4,6 +4,7 @@
 const React = require('react');
 const {Component} = require('react');
 const Layout = require('./components/Layout/Layout').default;
+const Number = require('./components/Number/Number').default;
 
 class App extends Component {
   constructor(props) {
@@ -14,12 +15,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    alert('Cargo');
+    //console.log('cargo...')
   }
 
   render() {
     const content = (<div>
-        <p onClick={this.click}>Contenido</p>
+        <p>Contenido</p>
+        <Number/>
       </div>
     );
 
@@ -31,4 +33,4 @@ class App extends Component {
   }
 }
 
-module.exports = App;
+export default App;
