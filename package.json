@@ -16,7 +16,6 @@
     "config": "^1.25.1",
     "express": "^4.14.1",
     "express-handlebars": "^3.0.0",
-    "express-handlebars-layouts": "git@github.com:arielfr/express-handlebars-layouts.git",
     "import-export": "^1.0.1",
     "less-plugin-clean-css": "^1.5.1",
     "moment": "^2.18.1",
