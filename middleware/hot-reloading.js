@@ -15,7 +15,7 @@ module.exports = (app) => {
     const compiler = webpack(webpackConfig);
 
     app.use(webpackDevMiddleware(compiler, {
-      publicPath: 'http://localhost:' + port,
+      publicPath: 'http://127.0.0.1:' + port,
       stats: {
         colors: true
       }
