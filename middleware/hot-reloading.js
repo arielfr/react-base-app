@@ -2,7 +2,7 @@
  * Created by arey on 5/3/17.
  */
 const config = require('config');
-const environmentHelper = require('../helpers/EnvironmentHelper');
+const environmentHelper = require('../helpers/environmentHelper');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const webpackDevMiddleware = require('webpack-dev-middleware');

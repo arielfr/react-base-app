@@ -3,7 +3,7 @@
  */
 const config = require('config');
 const logger = require('./helpers/logger')('index');
-const environmentHelper = require('./helpers/EnvironmentHelper');
+const environmentHelper = require('./helpers/environmentHelper');
 const express = require('express');
 const app = express();
 

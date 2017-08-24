@@ -7,7 +7,7 @@ const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Head = require('react-declarative-head');
-const environmentHelper = require('../helpers/EnvironmentHelper');
+const environmentHelper = require('../helpers/environmentHelper');
 const merge = require('deepmerge');
 const DefaultLayout = require('./Layout');
 

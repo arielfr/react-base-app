@@ -1,7 +1,7 @@
 /**
  * Created by arey on 4/28/17.
  */
-const environmentHelper = require('./helpers/EnvironmentHelper');
+const environmentHelper = require('./helpers/environmentHelper');
 const config = require('config');
 const webpack = require('webpack');
 const path = require('path');
