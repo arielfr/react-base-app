@@ -49,6 +49,11 @@ module.exports = (app, opts = {}) => {
         userAgent: req.headers['user-agent']
       }, (pageProps.layout || {}));
 
+      // Remove it from the props, so its not going to be added on the pageScript
+      if ( pageProps.layout ) {
+        delete pageProps.layout;
+      }
+
       const LayoutElement = React.createElement(DefaultLayout, layoutProps);
       const LayoutHTML = ReactDOMServer.renderToStaticMarkup(LayoutElement);
       const stringApp = ReactDOMServer.renderToString(React.createElement(ReactComponentPage, pageProps));

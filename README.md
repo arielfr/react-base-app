@@ -18,17 +18,25 @@ This folder contains the application, inside you will find:
 
 #### Routes
 
-Inside this folder you need to add the routes
+The res.render method has been re-write. It works like a view-engine for React. You only need to pass the name of the page that you want to render and the initial props to send:
 
-You have a helper called ReactRenderer
-
-```
-ReactRenderer.renderPage(req, res, 'index', {});
+```javascript
+res.render('index', {});
 ```
 
-With this, you send the page name (subfolder on pages), and is going to automatically render with ReactDom the index.js inside
+Then the render method is going to find the Page Component that inside the index folder on pages
 
-On production is webpack is going to generate the manifest.json and this is going to be read and use it to load the assets on the HTML
+#### Layout
+
+The application will load a Default Layout for the page. You can send more props to the Default Layout adding them to the props sended on res:
+
+```javascript
+res.render('index', {
+  layout: {
+    key: 'This is a prop that is only going to be use by the layout'
+  }
+});
+```
 
 ## Handlebars
 
