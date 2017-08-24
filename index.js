@@ -9,7 +9,6 @@ const app = express();
 const port = config.get('app.port');
 const baseDirectory = __dirname;
 
-require('./middleware/promisify')(app);
 require('./middleware/request-logger.js')(app);
 require('./middleware/view-engine')(app, baseDirectory);
 require('./middleware/custom-renderer.js')(app);

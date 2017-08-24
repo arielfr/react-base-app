@@ -15,19 +15,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //console.log('cargo...')
+    console.log('cargo...');
   }
 
   render() {
-    const content = (<div>
-        <p>Contenido</p>
-        <Number/>
-      </div>
-    );
-
     return (
-      <Layout userAgent={this.state.userAgent}>
-        {content}
+      <Layout>
+        <div>
+          <p>Contenido</p>
+          <Number/>
+        </div>
       </Layout>
     )
   }

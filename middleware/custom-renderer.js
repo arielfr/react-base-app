@@ -1,56 +1,67 @@
-const _ = require('lodash');
-const moment = require('moment');
-const config = require('config');
+// Load transpiler to support react code
+require('import-export');
+require('babel-core/register')();
 
-module.exports = function (app) {
-  const defaultModel = {
-    favicon: 'favicon.ico'
-  };
+const fs = require('fs');
+const path = require('path');
+const react = require('react');
+const reactDomServer = require('react-dom/server');
+const renderToString = reactDomServer.renderToString;
+const Head = require('react-declarative-head');
+const environmentHelper = require('../helpers/EnvironmentHelper');
 
-  //This will append defualt configuration to all models
-  function loadDefaultModel(req, res, model) {
-    //Override the default keys with the ones on the model
-    //_.merge({}, { a: 'a'  }, { a: undefined }) // => { a: "a" }
-    //_.merge({}, { a: 'a'  }, { a: bb }) // => { a: "bb" }
-    model = _.merge({}, defaultModel, model);
+const deleteRequireCache = (path) => {
+  delete require.cache[require.resolve(path)]
+};
 
-    //Save user on model
-    //model.user = req.user;
+module.exports = (app, opts = {}) => {
+  app.use((req, res, next) => {
+    /**
+     * Override render from Express. First render React with Dom Server. Then pass it to Express. And Express run it
+     * to its View Engine configured
+     * @param page
+     * @param inheritState
+     */
+    res.render = (page, inheritState) => {
+      const pagePath = '../app/pages/' + page + '/index';
+      const ReactComponentPage = require(pagePath).default;
+      // Assets names to be imported on the HTML
+      let scriptAssetPath = page.toLowerCase() + '.js';
+      let styleAssetPath  = page.toLowerCase() + '.css';
 
-    // Enable or disable Twak
-    //model.twak = config.get('twak.enabled');
-
-    //Setting moment locale
-    moment.locale('es');
-
-    return model;
-  }
-
-  app.use(function (req, res, next) {
-    res.getHTML = function (view, model) {
-      try {
-        model = loadDefaultModel(req, res, model);
-      } catch (error) {
-        Promise.reject(error);
+      //Remove the require cache to prevent server & client inconsistencies
+      if (environmentHelper.isDevelopment()) {
+        deleteRequireCache(pagePath);
+      }else{
+        // Get the real asset names
+        try{
+          const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
+          scriptAssetPath = manifestFile[scriptAssetPath] || '';
+          styleAssetPath = manifestFile[styleAssetPath] || '';
+        }catch(e){
+          throw new Error('Error reading manifest file: ' + e);
+        }
       }
 
-      return res.renderAsyc(view, model);
-    };
+      const state = Object.assign({
+        userAgent: req.headers['user-agent']
+      }, inheritState);
 
-    res.renderSync = function (view, model) {
-      //If something fail getting the configurations, show a 500 with no specific program styles
-      try {
-        model = loadDefaultModel(req, res, model);
-      } catch (error) {
-        //log.error(error);
-        view = '500';
-        model = {};
-      }
+      const stringApp = renderToString(react.createElement(ReactComponentPage, {
+        initialState: state
+      }));
 
-      res.renderAsyc(view, model).then(function (pageRender) {
-        res.send(pageRender);
-      }).catch(error => {
-        next(error);
+      app.render('application', {
+        head: Head.rewind(),
+        app: stringApp,
+        state: state,
+        style: styleAssetPath,
+        script: scriptAssetPath
+      }, function (error, response) {
+        if (error) {
+          return next(error);
+        }
+        return res.send(response);
       });
     };
 
