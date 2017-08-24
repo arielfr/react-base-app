@@ -12,5 +12,8 @@
   },
   "handlebars": {
     "cache": false
+  },
+  "logger": {
+    "level": "info"
   }
 }

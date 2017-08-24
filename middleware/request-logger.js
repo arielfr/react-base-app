@@ -1,14 +1,16 @@
 /**
  * Created by arey on 2/9/17.
  */
-module.exports = function(app){
-  app.use(function(req, res, next){
-    //Do not log static urls
-    var regex = /^\/(css|js|fonts|images)\//,
-      ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+const logger = require('../helpers/logger')('request-logger');
 
-    if(!regex.test(req.url)){
-      console.log(ip + ' - [' + req.method + '] ' + req.url);
+module.exports = function (app) {
+  app.use(function (req, res, next) {
+    //Do not log static urls
+    const regex = /^\/(css|js|fonts|images)\//;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    if (!regex.test(req.url)) {
+      logger.debug(ip + ' - [' + req.method + '] ' + req.url);
     }
 
     next();

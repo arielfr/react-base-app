@@ -2,9 +2,11 @@
  * Created by arey on 4/28/17.
  */
 const config = require('config');
+const logger = require('./helpers/logger')('index');
 const environmentHelper = require('./helpers/EnvironmentHelper');
 const express = require('express');
 const app = express();
+
 
 const port = config.get('app.port');
 const baseDirectory = __dirname;
@@ -24,5 +26,5 @@ if (!environmentHelper.isDevelopment()) {
 }
 
 app.listen(port, () => {
-  console.log('App working on port: ' + port);
+  logger.info('App working on port: ' + port);
 });

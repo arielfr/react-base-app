@@ -25,7 +25,8 @@
     "react": "15.6.1",
     "react-declarative-head": "1.0.5",
     "react-dom": "15.6.1",
-    "swag": "0.7.0"
+    "swag": "0.7.0",
+    "winston": "2.3.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "3.2.0",
