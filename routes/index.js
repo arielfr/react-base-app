@@ -1,9 +1,8 @@
-/**
- * Created by arey on 4/28/17.
- */
-module.exports = (app) => {
-  app.get('/', (req, res) => {
-    // Initial State
-    res.render('index', {});
-  });
-};
+const router = require('express').Router();
+
+router.get('/', (req, res) => {
+  // Initial State
+  res.render('index', {});
+});
+
+module.exports = router;

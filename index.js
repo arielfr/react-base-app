@@ -14,7 +14,7 @@ require('./middleware/view-engine')(app, baseDirectory);
 require('./middleware/react-renderer.js')(app);
 require('./middleware/hot-reloading')(app);
 
-require('./routes/index')(app);
+app.use(require('./routes/index'));
 
 // Serve static files
 app.use(express.static('public'));
