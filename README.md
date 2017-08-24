@@ -1,6 +1,8 @@
 # react-base-app
 
-This is a base React Application with Hot Module Replacement.
+This is a base React Application with Hot Module Replacement. This application is generic, you can use it to create your own React Application with SSR.
+
+Just clone it, fork it, or copy the code and start constructing yout application. This is just a skeleton.
 
 **Production Ready**
 
