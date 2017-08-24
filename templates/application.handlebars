@@ -10,10 +10,10 @@
         {{{head}}}
     </head>
     <body>
-        <div id="root">{{{app}}}</div>
+		{{{app}}}
     </body>
     <script type="application/javascript">
-        window.__PRELOADED_STATE__ = {{#stringify state}}{{/stringify}}
+        window.__PRELOADED_STATE__ = {{#stringify state}}{{/stringify}};
     </script>
     {{#if script}}
         <script src="{{script}}"></script>

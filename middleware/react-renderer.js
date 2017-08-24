@@ -4,11 +4,12 @@ require('babel-core/register')();
 
 const fs = require('fs');
 const path = require('path');
-const react = require('react');
-const reactDomServer = require('react-dom/server');
-const renderToString = reactDomServer.renderToString;
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 const Head = require('react-declarative-head');
 const environmentHelper = require('../helpers/EnvironmentHelper');
+const merge = require('deepmerge');
+const DefaultLayout = require('./Layout');
 
 const deleteRequireCache = (path) => {
   delete require.cache[require.resolve(path)]
@@ -19,15 +20,15 @@ module.exports = (app, opts = {}) => {
     /**
      * Override render from Express. First render React with Dom Server. Then pass it to Express. And Express run it
      * to its View Engine configured
-     * @param page
-     * @param inheritState
+     * @param pageComponent
+     * @param pageProps
      */
-    res.render = (page, inheritState) => {
-      const pagePath = '../app/pages/' + page + '/index';
+    res.render = (pageComponent, pageProps) => {
+      const pagePath = '../app/pages/' + pageComponent + '/index';
       const ReactComponentPage = require(pagePath);
       // Assets names to be imported on the HTML
-      let scriptAssetPath = page.toLowerCase() + '.js';
-      let styleAssetPath  = page.toLowerCase() + '.css';
+      let scriptAssetPath = pageComponent.toLowerCase() + '.js';
+      let styleAssetPath  = pageComponent.toLowerCase() + '.css';
 
       //Remove the require cache to prevent server & client inconsistencies
       if (environmentHelper.isDevelopment()) {
@@ -43,18 +44,21 @@ module.exports = (app, opts = {}) => {
         }
       }
 
-      const state = Object.assign({
+      // Merge the default props for layouts with the ones sended on the route
+      const layoutProps = merge({
         userAgent: req.headers['user-agent']
-      }, inheritState);
+      }, (pageProps.layout || {}));
 
-      const stringApp = renderToString(react.createElement(ReactComponentPage, {
-        initialState: state
-      }));
+      const LayoutElement = React.createElement(DefaultLayout, layoutProps);
+      const LayoutHTML = ReactDOMServer.renderToStaticMarkup(LayoutElement);
+      const stringApp = ReactDOMServer.renderToString(React.createElement(ReactComponentPage, pageProps));
+      // Replace where the Application is going to be and render the App
+      const output = LayoutHTML.replace('{{children}}', stringApp);
 
       app.render('application', {
         head: Head.rewind(),
-        app: stringApp,
-        state: state,
+        app: output,
+        state: pageProps, // Only send the props required by the page component
         style: styleAssetPath,
         script: scriptAssetPath
       }, function (error, response) {

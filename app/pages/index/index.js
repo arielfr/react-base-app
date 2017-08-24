@@ -2,8 +2,7 @@
  * Created by arey on 4/28/17.
  */
 const React = require('react');
-const {Component} = require('react');
-const Layout = require('../../components/Layout/Layout');
+const { Component } = require('react');
 const Number = require('./components/Number/Number');
 
 class App extends Component {
@@ -17,12 +16,10 @@ class App extends Component {
 
   render() {
     return (
-      <Layout>
-        <div>
-          <p>Contenido</p>
-          <Number/>
-        </div>
-      </Layout>
+      <div className="index">
+        <p>Contenido</p>
+        <Number />
+      </div>
     )
   }
 }
