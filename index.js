@@ -17,7 +17,7 @@ require('./middleware/hot-reloading')(app);
 app.use(require('./routes/index'));
 
 // Serve static files
-app.use(express.static('public'));
+app.use(express.static('app/assets'));
 
 if (!environmentHelper.isDevelopment()) {
   app.use(express.static('bundles'));
