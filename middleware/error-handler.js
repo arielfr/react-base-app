@@ -3,5 +3,5 @@ module.exports = function (app) {
 };
 
 function errorHandler(err, req, res, next) {
-  res.render('500');
+  res.render('error', {});
 }

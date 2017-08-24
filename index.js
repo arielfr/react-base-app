@@ -11,7 +11,7 @@ const baseDirectory = __dirname;
 
 require('./middleware/request-logger.js')(app);
 require('./middleware/view-engine')(app, baseDirectory);
-require('./middleware/custom-renderer.js')(app);
+require('./middleware/react-renderer.js')(app);
 require('./middleware/hot-reloading')(app);
 
 require('./routes/index')(app);

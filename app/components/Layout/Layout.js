@@ -29,4 +29,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+module.exports = Layout;

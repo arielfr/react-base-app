@@ -24,7 +24,7 @@ module.exports = (app, opts = {}) => {
      */
     res.render = (page, inheritState) => {
       const pagePath = '../app/pages/' + page + '/index';
-      const ReactComponentPage = require(pagePath).default;
+      const ReactComponentPage = require(pagePath);
       // Assets names to be imported on the HTML
       let scriptAssetPath = page.toLowerCase() + '.js';
       let styleAssetPath  = page.toLowerCase() + '.css';

@@ -31,4 +31,4 @@ class Numbers extends Component {
   }
 }
 
-export default Numbers;
+module.exports = Numbers;

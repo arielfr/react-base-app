@@ -3,15 +3,12 @@
  */
 const React = require('react');
 const {Component} = require('react');
-const Layout = require('../../components/Layout/Layout').default;
-const Number = require('./components/Number/Number').default;
+const Layout = require('../../components/Layout/Layout');
+const Number = require('./components/Number/Number');
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    // Set initial state from props
-    this.state = this.props.initialState;
   }
 
   componentDidMount() {
@@ -30,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default App;
+module.exports = App;
