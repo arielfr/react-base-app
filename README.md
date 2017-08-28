@@ -49,7 +49,7 @@ The engine to load the vies is Handlebars. This is only needed to render the mai
 If you want to develop, just:
 
 ```bash
-node index.js
+npm run start-dev
 ```
 
 ## Scripts + Production
