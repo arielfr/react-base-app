@@ -1,7 +1,7 @@
 {
   "name": "react-base-app",
   "version": "1.0.0",
-  "description": "React base application with SSR",
+  "description": "React Boilerplate with SSR and Hot Module Replacement",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node ./index.js",
