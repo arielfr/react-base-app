@@ -67,7 +67,6 @@ module.exports = (app, opts = {}) => {
         <!DOCTYPE html>
         <html>
           <head>
-            <link rel="shortcut icon" href="favicon.ico">
             ${styleAssetPath ? '<link rel="stylesheet" href="' + styleAssetPath + '">' : ''}
             ${Head.rewind()}
           </head>
