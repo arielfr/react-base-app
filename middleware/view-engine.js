@@ -1,6 +1,5 @@
 const handlebars = require('express-handlebars');
 const config = require('config');
-const moment = require('moment');
 
 module.exports = function (app, baseDirectory) {
   const hbs = handlebars.create({
