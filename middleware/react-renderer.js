@@ -8,7 +8,7 @@ const ReactDOMServer = require('react-dom/server');
 const Head = require('react-declarative-head');
 const { isDevelopment } = require('../helpers/environmentHelper');
 const merge = require('deepmerge');
-const DefaultLayout = require('./Layout');
+const DefaultLayout = require('../app/components/Layout');
 
 const deleteRequireCache = (path) => {
   delete require.cache[require.resolve(path)]
