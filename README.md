@@ -1,10 +1,10 @@
-# react-base-app
+# React Boilerplate for SSR + HMR (React + LESS files)
 
-This is a base React Application with Hot Module Replacement. This application is generic, you can use it to create your own React Application with SSR.
+This is a boilerplate for a Server Side React Application with Client side code too, with Hot Module Replacement. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
 
 Just clone it, fork it, or copy the code and start constructing yout application. This is just a skeleton.
 
-**Production Ready**
+**This application is Production Ready. You just need to compile the assets and run the app, and it will work like a charm**.
 
 ### Structure
 
