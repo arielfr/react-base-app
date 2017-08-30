@@ -80,7 +80,7 @@ function entryPoint(entry) {
 function styleLoader() {
   let lessLoaderPlugins = [];
 
-  if(!environmentHelper.isDevelopment()){
+  if (!environmentHelper.isDevelopment()) {
     lessLoaderPlugins.push(
       new CleanCSSPlugin({
         advanced: true,
@@ -124,7 +124,7 @@ function pluginsToLoad() {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
     ]);
-  }else{
+  } else {
     // This must be the first plugin
     plugins.unshift(
       new CleanWebpackPlugin([path.join(baseDirectory, 'bundles')], {
