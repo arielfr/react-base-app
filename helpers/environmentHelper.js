@@ -1,13 +1,13 @@
 /**
  * Created by arey on 4/28/17.
  */
-const nodeEnvironment = process.env.NODE_ENV;
+const { NODE_ENV } = process.env;
 
 module.exports = {
   getEnvironment: () => {
-    return process.env.NODE_ENV || 'development';
+    return NODE_ENV || 'development';
   },
   isDevelopment: () => {
-    return (nodeEnvironment === undefined || nodeEnvironment !== 'production');
+    return (NODE_ENV === undefined || NODE_ENV !== 'production');
   }
 };

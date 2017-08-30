@@ -6,7 +6,7 @@ const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Head = require('react-declarative-head');
-const environmentHelper = require('../helpers/environmentHelper');
+const { isDevelopment } = require('../helpers/environmentHelper');
 const merge = require('deepmerge');
 const DefaultLayout = require('./Layout');
 
@@ -29,7 +29,7 @@ module.exports = (app, opts = {}) => {
       let scriptAssetPath = pageComponent.toLowerCase() + '.js';
       let styleAssetPath  = pageComponent.toLowerCase() + '.css';
 
-      if (environmentHelper.isDevelopment()) {
+      if (isDevelopment()) {
         // Remove the cache of all of the pages JS files on app folder (This is to prevent the page and components not being cache on SSR)
         Object.keys(require.cache).forEach(function(id) {
           if (/[\/\\]app[\/\\]/.test(id) && /\.js$/.test(id)){

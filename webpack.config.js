@@ -1,7 +1,7 @@
 /**
  * Created by arey on 4/28/17.
  */
-const environmentHelper = require('./helpers/environmentHelper');
+const { isDevelopment, getEnvironment } = require('./helpers/environmentHelper');
 const config = require('config');
 const webpack = require('webpack');
 const path = require('path');
@@ -72,18 +72,18 @@ function entryPoint(entry) {
 
   if (Array.isArray(entry)) {
     return {
-      main: (environmentHelper.isDevelopment()) ? devEntries.concat(entry) : entry
+      main: (isDevelopment()) ? devEntries.concat(entry) : entry
     }
   } else if (typeof entry === 'string') {
     return {
-      main: (environmentHelper.isDevelopment()) ? devEntries.concat([entry]) : [entry]
+      main: (isDevelopment()) ? devEntries.concat([entry]) : [entry]
     }
   } else if (typeof entry === 'object') {
     Object.keys(entry).forEach((entryName) => {
       if (!Array.isArray(entry[entryName])) {
-        entry[entryName] = (environmentHelper.isDevelopment()) ? devEntries.concat([entry[entryName]]) : [entry[entryName]]
+        entry[entryName] = (isDevelopment()) ? devEntries.concat([entry[entryName]]) : [entry[entryName]]
       } else {
-        entry[entryName] = (environmentHelper.isDevelopment()) ? devEntries.concat(entry[entryName]) : entry[entryName]
+        entry[entryName] = (isDevelopment()) ? devEntries.concat(entry[entryName]) : entry[entryName]
       }
     });
     return entry;
@@ -95,7 +95,7 @@ function entryPoint(entry) {
 function styleLoader() {
   let lessLoaderPlugins = [];
 
-  if (!environmentHelper.isDevelopment()) {
+  if (!isDevelopment()) {
     lessLoaderPlugins.push(
       new CleanCSSPlugin({
         advanced: true,
@@ -128,7 +128,7 @@ function pluginsToLoad() {
   let plugins = [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(environmentHelper.getEnvironment())
+        NODE_ENV: JSON.stringify(getEnvironment())
       }
     })
   ];
@@ -136,7 +136,7 @@ function pluginsToLoad() {
   // Always extract the CSS
   plugins.push(extractLess);
 
-  if (environmentHelper.isDevelopment()) {
+  if (isDevelopment()) {
     plugins = plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
@@ -170,5 +170,5 @@ function pluginsToLoad() {
 }
 
 function getOuputName(extension) {
-  return environmentHelper.isDevelopment() ? ('[name].' + extension) : ('[name].[hash].' + extension);
+  return isDevelopment() ? ('[name].' + extension) : ('[name].[hash].' + extension);
 }

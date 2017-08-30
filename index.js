@@ -3,7 +3,7 @@
  */
 const config = require('config');
 const logger = require('./helpers/logger')('index');
-const environmentHelper = require('./helpers/environmentHelper');
+const { isDevelopment } = require('./helpers/environmentHelper');
 const express = require('express');
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(require('./routes/index'));
 // Serve static files
 app.use(express.static('app/assets'));
 
-if (!environmentHelper.isDevelopment()) {
+if (!isDevelopment()) {
   app.use(express.static('bundles'));
 }
 
