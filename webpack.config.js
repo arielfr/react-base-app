@@ -106,19 +106,21 @@ function styleLoader() {
 
   return {
     test: /\.(css|less)$/,
-    use: extractLess.extract({
-      use: [{
-        loader: 'css-loader'
-      }, {
-        loader: 'autoprefixer-loader'
-      }, {
-        loader: 'less-loader',
-        options: {
-          plugins: lessLoaderPlugins
-        },
-      }],
-      fallback: 'style-loader'
-    })
+    use: ['css-hot-loader'].concat(
+      extractLess.extract({
+        use: [{
+          loader: 'css-loader'
+        }, {
+          loader: 'autoprefixer-loader'
+        }, {
+          loader: 'less-loader',
+          options: {
+            plugins: lessLoaderPlugins
+          },
+        }],
+        fallback: 'style-loader'
+      })
+    )
   }
 }
 
