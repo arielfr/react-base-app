@@ -16,7 +16,6 @@
     "config": "1.25.1",
     "deepmerge": "1.5.1",
     "express": "4.14.1",
-    "express-handlebars": "3.0.0",
     "react": "15.6.1",
     "react-declarative-head": "1.0.5",
     "react-dom": "15.6.1",

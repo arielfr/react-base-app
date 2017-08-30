@@ -27,22 +27,22 @@ module.exports = (app, opts = {}) => {
       const ReactComponentPage = require(pagePath);
       // Assets names to be imported on the HTML
       let scriptAssetPath = pageComponent.toLowerCase() + '.js';
-      let styleAssetPath  = pageComponent.toLowerCase() + '.css';
+      let styleAssetPath = pageComponent.toLowerCase() + '.css';
 
       if (isDevelopment()) {
         // Remove the cache of all of the pages JS files on app folder (This is to prevent the page and components not being cache on SSR)
-        Object.keys(require.cache).forEach(function(id) {
-          if (/[\/\\]app[\/\\]/.test(id) && /\.js$/.test(id)){
+        Object.keys(require.cache).forEach(function (id) {
+          if (/[\/\\]app[\/\\]/.test(id) && /\.js$/.test(id)) {
             deleteRequireCache(id);
           }
         });
-      }else{
+      } else {
         // Get the real asset names
-        try{
+        try {
           const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
           scriptAssetPath = manifestFile[scriptAssetPath] || '';
           styleAssetPath = manifestFile[styleAssetPath] || '';
-        }catch(e){
+        } catch (e) {
           throw new Error('Error reading manifest file: ' + e);
         }
       }
@@ -53,7 +53,7 @@ module.exports = (app, opts = {}) => {
       }, (pageProps.layout || {}));
 
       // Remove it from the props, so its not going to be added on the pageScript
-      if ( pageProps.layout ) {
+      if (pageProps.layout) {
         delete pageProps.layout;
       }
 
@@ -61,20 +61,27 @@ module.exports = (app, opts = {}) => {
       const LayoutHTML = ReactDOMServer.renderToStaticMarkup(LayoutElement);
       const stringApp = ReactDOMServer.renderToString(React.createElement(ReactComponentPage, pageProps));
       // Replace where the Application is going to be and render the App
-      const output = LayoutHTML.replace('{{children}}', stringApp);
+      const appHtml = LayoutHTML.replace('{{children}}', stringApp);
 
-      app.render('application', {
-        head: Head.rewind(),
-        app: output,
-        state: pageProps, // Only send the props required by the page component
-        style: styleAssetPath,
-        script: scriptAssetPath
-      }, function (error, response) {
-        if (error) {
-          return next(error);
-        }
-        return res.send(response);
-      });
+      const html = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <link rel="shortcut icon" href="favicon.ico">
+            ${styleAssetPath ? '<link rel="stylesheet" href="' + styleAssetPath + '">' : ''}
+            ${Head.rewind()}
+          </head>
+          <body>
+            ${appHtml}
+          </body>
+          <script type="application/javascript">
+              window.__PRELOADED_STATE__ = ${JSON.stringify(pageProps)};
+          </script>
+          ${scriptAssetPath ? '<script src="' + scriptAssetPath + '"></script>' : ''}
+        </html>
+      `;
+
+      res.send(html);
     };
 
     next();
