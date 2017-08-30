@@ -29,19 +29,34 @@ module.exports = {
     filename: getOuputName('js'),
   },
   module: {
-    // apply loaders to files that meet given conditions
-    rules: [
+    loaders: [
       {
+        loader: 'babel-loader',
         test: /\.js?$/,
         include: path.join(baseDirectory, '/app'),
-        use: [
-          {
-            loader: 'babel-loader'
-          }
-        ]
+        query: {
+          env: {
+            development: {
+              presets: ['react-hmre'],
+              plugins: [
+                [
+                  'react-transform', {
+                  transforms: [
+                    {
+                      transform: 'react-transform-hmr',
+                      imports: ['react'],
+                      locals: ['module']
+                    }
+                  ]
+                }
+                ]
+              ]
+            }
+          },
+        }
       },
-      styleLoader()
-    ]
+      styleLoader(),
+    ],
   },
   plugins: pluginsToLoad(),
   target: 'web'
@@ -100,7 +115,7 @@ function styleLoader() {
         loader: 'less-loader',
         options: {
           plugins: lessLoaderPlugins
-        }
+        },
       }],
       fallback: 'style-loader'
     })
