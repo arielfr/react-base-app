@@ -40,10 +40,6 @@ res.render('index', {
 });
 ```
 
-## Handlebars
-
-The engine to load the vies is Handlebars. This is only needed to render the main page and put the Application and the assets on the HTML
-
 ## Configurations
 
 The application includes the library [config](http://npmjs.com/package/config) to load the configurations. Just include the package and use it.
