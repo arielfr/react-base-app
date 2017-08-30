@@ -44,6 +44,34 @@ res.render('index', {
 
 The engine to load the vies is Handlebars. This is only needed to render the main page and put the Application and the assets on the HTML
 
+## Configurations
+
+The application includes the library [config](http://npmjs.com/package/config) to load the configurations. Just include the package and use it.
+
+````javascript
+const config = require('config');
+
+config.get('specific.configuration');
+````
+
+## Logger
+
+This boilerplate includes a logger helper witch use **winston** to ouput on the console. To use it just:
+
+````javascript
+const logger = require('directory/helpers/logger')('log-name');
+
+logger.info('This is a log');
+````
+
+This are the available methods:
+- info
+- warn
+- error
+- verbose
+- debug
+- silly
+
 ## Scripts
 
 If you want to develop, just:
