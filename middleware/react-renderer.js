@@ -1,5 +1,4 @@
 // Load transpiler to support react code
-require('import-export');
 require('babel-core/register')();
 
 const fs = require('fs');
