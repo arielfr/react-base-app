@@ -29,6 +29,7 @@ module.exports = (app, opts = {}) => {
       let scriptAssetPath = pageComponent.toLowerCase() + '.js';
       let styleAssetPath  = pageComponent.toLowerCase() + '.css';
 
+      // TODO: Need to remove the cache of the requires inside page, or when you refresh you will see a flash
       //Remove the require cache to prevent server & client inconsistencies
       if (environmentHelper.isDevelopment()) {
         deleteRequireCache(pagePath);
