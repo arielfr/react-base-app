@@ -1,6 +1,5 @@
 const handlebars = require('express-handlebars');
 const config = require('config');
-const swag = require('swag');
 const moment = require('moment');
 
 module.exports = function (app, baseDirectory) {
@@ -10,8 +9,6 @@ module.exports = function (app, baseDirectory) {
     ]
   });
 
-  //Register swag extend helper
-  hbs.handlebars.registerHelper(swag.helpers);
   //Override i18n - Adding helper for i18n
   /*
   hbs.handlebars.registerHelper('i18n', function (phrase) {
