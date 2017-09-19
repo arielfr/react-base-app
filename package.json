@@ -15,6 +15,7 @@
   "dependencies": {
     "config": "1.25.1",
     "deepmerge": "1.5.1",
+    "device": "0.3.8",
     "express": "4.14.1",
     "react": "15.6.1",
     "react-declarative-head": "1.0.5",

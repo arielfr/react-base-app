@@ -9,6 +9,7 @@ const app = express();
 
 const port = config.get('app.port');
 
+require('./middleware/device-detection.js')(app);
 require('./middleware/request-logger.js')(app);
 require('./middleware/react-renderer.js')(app);
 require('./middleware/hot-reloading')(app);

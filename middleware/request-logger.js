@@ -10,7 +10,7 @@ module.exports = function (app) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     if (!regex.test(req.url)) {
-      logger.debug(ip + ' - [' + req.method + '] ' + req.url);
+      logger.debug(`${ip} - [${req.method}][${req.device.type.toUpperCase()}] ${req.url}`);
     }
 
     next();
