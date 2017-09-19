@@ -68,6 +68,26 @@ This are the available methods:
 - debug
 - silly
 
+## Device Detection
+
+Inside the project you will find a `device-detection` middleware. This will use the `user-agent` and match with a REGEX to find out wich device it is.
+
+Its using the [device](npmjs.com/package/device) package to do this. Then, we manipulate the response to send only the next types:
+
+- desktop
+- mobile
+
+You can find the object device on the request:
+
+```javascript
+req.device = {
+  type: 'desktop',
+  model: ''
+}
+```
+
+If you want to get the specific model of the device, you need to change the configuration `get-model` to `true` on `device-detection`.
+
 ## Scripts
 
 If you want to develop, just:
