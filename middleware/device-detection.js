@@ -10,20 +10,18 @@ const config = require('config');
  */
 const desktopDevices = ['desktop', 'tv', 'bot'];
 
-module.exports = function (app) {
-  app.use(function (req, res, next) {
-    // Detect the device type depending on the user-agent
-    const detection = device(req.header('user-agent'), {
-      parseUserAgent: config.get('device-detection.get-model'),
-    });
-
-    req.device = {
-      // If its not a desktop device, is mobile
-      type: (desktopDevices.indexOf(detection.type) !== -1) ? 'desktop' : 'mobile',
-      // This element is always empty unless parseUserAgent is true (performance)
-      model: detection.model,
-    };
-
-    next();
+module.exports = (req, res, next) => {
+  // Detect the device type depending on the user-agent
+  const detection = device(req.header('user-agent'), {
+    parseUserAgent: config.get('device-detection.get-model'),
   });
+
+  req.device = {
+    // If its not a desktop device, is mobile
+    type: (desktopDevices.indexOf(detection.type) !== -1) ? 'desktop' : 'mobile',
+    // This element is always empty unless parseUserAgent is true (performance)
+    model: detection.model,
+  };
+
+  next();
 };

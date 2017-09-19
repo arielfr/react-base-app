@@ -9,16 +9,44 @@ const app = express();
 
 const port = config.get('app.port');
 
-require('./middleware/device-detection.js')(app);
-require('./middleware/request-logger.js')(app);
-require('./middleware/react-renderer.js')(app);
-require('./middleware/hot-reloading')(app);
+/**
+ * App Routes and Middlewares
+ */
+app.use(
+  '/',
+  // Before Middlewares
+  [
+    require('./middleware/device-detection.js'),
+    require('./middleware/request-logger.js'),
+    require('./middleware/react-renderer.js')(),
+  ],
+  // Array with hot-reloading middlewares
+  require('./middleware/hot-reloading')(),
+  [
+    // Pages
+    require('./app/routes/index'),
+  ],
+  require('./middleware/error-handler')
+  // After Middlewares
+);
 
-app.use(require('./routes/index'));
+/**
+ * Api Routes and Middlewares
+ */
+app.use(
+  '/api',
+  // Before Middlewares
+  [
+    // Pages
+    require('./api/index'),
+  ]
+  // After Middlewares
+);
 
 // Serve static files
 app.use(express.static('app/assets'));
 
+// Serve the build bundles on production
 if (!isDevelopment()) {
   app.use(express.static('bundles'));
 }

@@ -14,8 +14,8 @@ const deleteRequireCache = (path) => {
   delete require.cache[require.resolve(path)]
 };
 
-module.exports = (app, opts = {}) => {
-  app.use((req, res, next) => {
+module.exports = (opts = {}) => {
+  return (req, res, next) => {
     /**
      * Override render from Express. First render React with Dom Server. Then pass it to Express. And Express run it
      * to its View Engine configured
@@ -84,5 +84,5 @@ module.exports = (app, opts = {}) => {
     };
 
     next();
-  });
+  };
 };

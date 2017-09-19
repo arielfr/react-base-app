@@ -10,17 +10,21 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const port = config.get('app.port');
 
-module.exports = (app) => {
+module.exports = () => {
+  const hotReloadingMiddlewares = [];
+
   if (isDevelopment()) {
     const compiler = webpack(webpackConfig);
 
-    app.use(webpackDevMiddleware(compiler, {
+    hotReloadingMiddlewares.push(webpackDevMiddleware(compiler, {
       publicPath: 'http://127.0.0.1:' + port,
       stats: {
         colors: true
       }
     }));
 
-    app.use(webpackHotMiddleware(compiler));
+    hotReloadingMiddlewares.push(webpackHotMiddleware(compiler));
   }
+
+  return hotReloadingMiddlewares;
 };
