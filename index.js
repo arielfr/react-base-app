@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by arey on 4/28/17.
  */
 const config = require('config');
@@ -37,7 +37,7 @@ app.use(
   '/api',
   // Before Middlewares
   [
-    // Pages
+    // Endpoints
     require('./api/index'),
   ]
   // After Middlewares
