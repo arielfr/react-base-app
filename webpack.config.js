@@ -160,10 +160,9 @@ function pluginsToLoad() {
         },
         screwIe8: true,
         sourceMap: false
-      })
+      }),
+      new ManifestPlugin()
     ]);
-
-    plugins.push(new ManifestPlugin());
   }
 
   return plugins;
