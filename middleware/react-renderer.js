@@ -15,6 +15,14 @@ const deleteRequireCache = (path) => {
 };
 
 module.exports = (opts = {}) => {
+  let manifestFile;
+
+  try {
+    manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
+  } catch (e) {
+    throw new Error('Error reading manifest file: ' + e);
+  }
+
   return (req, res, next) => {
     /**
      * Override render from Express. First render React with Dom Server. Then pass it to Express. And Express run it
@@ -37,14 +45,9 @@ module.exports = (opts = {}) => {
           }
         });
       } else {
-        // Get the real asset names
-        try {
-          const manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-          scriptAssetPath = manifestFile[scriptAssetPath] || '';
-          styleAssetPath = manifestFile[styleAssetPath] || '';
-        } catch (e) {
-          throw new Error('Error reading manifest file: ' + e);
-        }
+        // Get the asset real filename
+        scriptAssetPath = manifestFile[scriptAssetPath] || '';
+        styleAssetPath = manifestFile[styleAssetPath] || '';
       }
 
       // Merge the default props for layouts with the ones sended on the route
