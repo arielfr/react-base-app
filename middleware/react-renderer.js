@@ -33,11 +33,12 @@ module.exports = (opts = {}) => {
      * @param pageProps
      */
     res.render = (pageComponent, pageProps) => {
-      const pagePath = '../app/pages/' + pageComponent + '/index';
+      const pagePath = `../app/pages/${pageComponent}/index`;
       const ReactComponentPage = require(pagePath);
       // Assets names to be imported on the HTML
-      let scriptAssetPath = pageComponent.toLowerCase() + '.js';
-      let styleAssetPath = pageComponent.toLowerCase() + '.css';
+      let scriptAssetPath = `${pageComponent.toLowerCase()}.js`;
+      let styleAssetPath = `${pageComponent.toLowerCase()}.css`;
+      let vendorAssetPath = 'vendor.js';
 
       if (isDevelopment()) {
         // Remove the cache of all of the pages JS files on app folder (This is to prevent the page and components not being cache on SSR)
@@ -50,6 +51,7 @@ module.exports = (opts = {}) => {
         // Get the asset real filename
         scriptAssetPath = manifestFile[scriptAssetPath] || '';
         styleAssetPath = manifestFile[styleAssetPath] || '';
+        vendorAssetPath = manifestFile[vendorAssetPath] || '';
       }
 
       // Merge the default props for layouts with the ones sended on the route
@@ -73,6 +75,7 @@ module.exports = (opts = {}) => {
         <html>
           <head>
             ${styleAssetPath ? '<link rel="stylesheet" href="' + styleAssetPath + '">' : ''}
+            ${vendorAssetPath ? '<script type="application/javascript" src="' + vendorAssetPath + '"></script>' : ''}
             ${Head.rewind()}
           </head>
           <body>
@@ -81,7 +84,7 @@ module.exports = (opts = {}) => {
           <script type="application/javascript">
               window.__PRELOADED_STATE__ = ${JSON.stringify(pageProps)};
           </script>
-          ${scriptAssetPath ? '<script src="' + scriptAssetPath + '"></script>' : ''}
+          ${scriptAssetPath ? '<script type="application/javascript" src="' + scriptAssetPath + '"></script>' : ''}
         </html>
       `;
 

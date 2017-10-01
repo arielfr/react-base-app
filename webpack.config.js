@@ -23,12 +23,15 @@ module.exports = {
       path.join(baseDirectory, '/app/client/index.js'),
       path.join(baseDirectory, '/app/pages/index/index.less')
     ]
-  })),
+  }), {
+    vendor: [
+      'react', 'react-dom', 'react-declarative-head'
+    ]
+  }),
   // the bundle file we will get in the result
   output: {
     publicPath: 'http://localhost:' + port + '/',
     path: path.join(baseDirectory, 'bundles'),
-    //path: '/',
     filename: getOuputName('js'),
   },
   module: {
@@ -129,6 +132,10 @@ function styleLoader() {
 
 function pluginsToLoad() {
   let plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(getEnvironment())
