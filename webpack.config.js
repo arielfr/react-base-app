@@ -17,10 +17,6 @@ const extractLess = new ExtractTextPlugin({
   filename: getOuputName('css')
 });
 
-console.log(entryPoint({
-  index: [path.join(baseDirectory, '/app/client/index.js'), path.join(baseDirectory, '/app/pages/index/index.less')]
-}))
-
 module.exports = {
   entry: entryPoint({
     index: [
