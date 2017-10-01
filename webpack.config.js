@@ -18,12 +18,12 @@ const extractLess = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: entryPoint({
+  entry: Object.assign({}, entryPoint({
     index: [
       path.join(baseDirectory, '/app/client/index.js'),
       path.join(baseDirectory, '/app/pages/index/index.less')
     ]
-  }),
+  })),
   // the bundle file we will get in the result
   output: {
     publicPath: 'http://localhost:' + port + '/',
