@@ -17,10 +17,12 @@ const deleteRequireCache = (path) => {
 module.exports = (opts = {}) => {
   let manifestFile;
 
-  try {
-    manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-  } catch (e) {
-    throw new Error('Error reading manifest file: ' + e);
+  if (!isDevelopment()) {
+    try {
+      manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
+    } catch (e) {
+      throw new Error('Error reading manifest file: ' + e);
+    }
   }
 
   return (req, res, next) => {
