@@ -19,8 +19,7 @@ const extractLess = new ExtractTextPlugin({
 
 module.exports = {
   entry: entryPoint({
-    'index': path.join(baseDirectory, '/app/client/index.js'),
-    'index': path.join(baseDirectory, '/app/pages/index/index.less')
+    index: path.join(baseDirectory, '/app/client/index.js')
   }),
   // the bundle file we will get in the result
   output: {
