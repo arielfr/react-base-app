@@ -2,9 +2,6 @@
   "app": {
     "port": 3000
   },
-  "handlebars": {
-    "cache": false
-  },
   "logger": {
     "level": "info"
   },
