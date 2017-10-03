@@ -1,26 +1,81 @@
-# React Boilerplate for SSR + HMR (React + LESS files)
+# React Boilerplate for SSR + HMR (React + LESS files) + Isomorphic Code + Adaptive Design (YES!)
 
-This is a boilerplate for a Server Side React Application with Client side code too, with Hot Module Replacement. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
+This is a boilerplate for creating a Server Side React Application with Client Side. This works using Isomorphic code between server and client side. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
+
+**It counts with Adaptive Design, you only need to enable the `adaptive` configuration on the config files** (This is explain at more detail below).
 
 Just clone it, fork it, or copy the code and start constructing yout application. This is just a skeleton.
 
 **This application is Production Ready. You just need to compile the assets and run the app, and it will work like a charm**.
 
-### Structure
-
-### App
+### App Structure
 
 This folder contains the application, inside you will find:
 
 - client: This is the entry point for webpack
 - pages: This folder needs to have the next structure
     - page-name (This is the one that is going to be render automatically by the SSR)
+        - styles (This is the styles folder)
+            - index.less (Main Styles for the page) - Non Adaptive
         - index.js (Page that is going to be render with ReactDOM)
-        - index.less (Main Styles for the page)
+        
+If you want to use adaptive mode, you need to create two different styles files inside `styles` folder
+
+- index.desktop.less
+- index.mobile.less
+
+Depending on the device that enters the page, it will server `desktop` or `mobile` css automatically.
+
+#### Adaptive
+
+To use Adaptive design on the application, you need to enable the **adaptive** configuration on the config files:
+
+```json
+"adaptive": true
+```
+
+Then you need to use the patter for adaptive design. That means you need two CSS files, one for `desktop` and one for `mobile`. The application is going to automatically loads the asset file depending on the device use to render.
+
+If you want to change the component that is going to be render depending the device, a **device** prop is going to be *injected* in all the pages. So, in your application index, you are going to count with the device property and you can render the components depending on them:
+
+```javascript
+const React = require('react');
+const { Component } = require('react');
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log('cargo...');
+  }
+
+  render() {
+    return (React.Children.only(this.props.device.type === 'desktop' ? <DesktopPageComponent/> : <MobilePageComponent/>));
+  }
+}
+
+module.exports = App;
+```
+
+#### Built-in Examples
+
+You will count with two examples:
+
+- index: Example page without adaptive design
+If you want to try the index example you need to disable the **adaptive configuration**.
+
+Endpoint to test: /
+
+- adaptive: Example page with adaptive design
+If you want to try the index example you need to enable the **adaptive configuration**.
+
+Endpoint to test: /adaptive
 
 #### Routes
 
-The res.render method has been re-write. It works like a view-engine for React. You only need to pass the name of the page that you want to render and the initial props to send:
+The res.render method has been **re-write**. It works like a view-engine for React. You only need to pass the name of the page that you want to render and the initial props to send:
 
 ```javascript
 res.render('index', {});
@@ -39,6 +94,20 @@ res.render('index', {
   }
 });
 ```
+
+##### Layout Default Props
+
+The default props receive by the layouts are:
+
+- userAgent (From Header)
+- device (From device detection middleware)
+
+
+### Page Component Default Props
+
+The `index.js` component for the page is also going to receive default props:
+
+- device (From device detection middleware)
 
 ## Configurations
 

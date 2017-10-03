@@ -77,6 +77,11 @@ module.exports = (opts = {}) => {
         delete pageProps.layout;
       }
 
+      // Add default props to main page component
+      pageProps = merge({
+        device: req.device,
+      }, pageProps);
+
       const LayoutElement = React.createElement(DefaultLayout, layoutProps);
       const LayoutHTML = ReactDOMServer.renderToStaticMarkup(LayoutElement);
       const stringApp = ReactDOMServer.renderToString(React.createElement(ReactComponentPage, pageProps));
