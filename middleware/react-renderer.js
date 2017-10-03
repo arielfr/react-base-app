@@ -22,10 +22,10 @@ module.exports = (opts = {}) => {
   let manifestFile;
 
   if (!isDevelopment()) {
-    try {
+    if (fs.existsSync(path.join(__dirname, '../bundles/manifest.json'))) {
       manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-    } catch (e) {
-      throw new Error('Error reading manifest file: ' + e);
+    } else {
+      throw new Error('Manifest file doesnt exists');
     }
   }
 
@@ -40,6 +40,7 @@ module.exports = (opts = {}) => {
       const pagePath = `../app/pages/${pageComponent}/index`;
       const ReactComponentPage = require(pagePath);
       const deviceType = req.device.type;
+
       // Assets names to be imported on the HTML
       let scriptAssetPath = `${pageComponent.toLowerCase()}.js`;
       let styleAssetPath = `${pageComponent.toLowerCase()}.css`;
@@ -59,7 +60,7 @@ module.exports = (opts = {}) => {
           }
         });
       } else {
-        // Get the asset real filename
+        // Get real names from manifest file (files have hash)
         scriptAssetPath = manifestFile[scriptAssetPath] || '';
         styleAssetPath = manifestFile[styleAssetPath] || '';
         vendorAssetPath = manifestFile[vendorAssetPath] || '';

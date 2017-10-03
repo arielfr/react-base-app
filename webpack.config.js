@@ -285,7 +285,19 @@ function pluginsToLoad() {
         screwIe8: true,
         sourceMap: false
       }),
-      new ManifestPlugin()
+      new ManifestPlugin({
+        map: (el) => {
+          // If it is CSS and adaptive mode is enable. Rename the chuck name to generate two different files on manifest
+          if (isAdaptive && /\.css$/.test(el.path)) {
+            const isMobile = /\.(mobile)\./.test(el.path);
+            const isDesktop = /\.(desktop)\./.test(el.path);
+            // Change the chunk name to generate a different entry on manifest
+            el.name = `${el.chunk.name}.${isDesktop ? 'desktop' : isMobile ? 'mobile' : ''}.css`;
+          }
+
+          return el;
+        }
+      }),
     ]);
   }
 
