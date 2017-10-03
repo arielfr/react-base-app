@@ -22,11 +22,11 @@ const extractTextPlugins = [];
 // Creating extract text plugins for CSS on specific devices
 if (isAdaptive) {
   extractTextPlugins.push(new ExtractTextPlugin({
-    filename: getCssOutputName('css', 'desktop'),
+    filename: getOuputName('css', 'desktop'),
   }));
 
   extractTextPlugins.push(new ExtractTextPlugin({
-    filename: getCssOutputName('css', 'mobile'),
+    filename: getOuputName('css', 'mobile'),
   }));
 } else {
   extractTextPlugins.push(new ExtractTextPlugin({
@@ -298,10 +298,9 @@ function pluginsToLoad() {
   return plugins;
 }
 
-function getOuputName(extension) {
+function getOuputName(extension, device) {
+  if (device) {
+    return `[name].${device}${!isDevelopment() ? '.[hash]' : ''}.${extension}`;
+  }
   return `[name]${!isDevelopment() ? '.[hash]' : ''}.${extension}`;
-}
-
-function getCssOutputName(extension, device) {
-  return `[name].${device}${!isDevelopment() ? '.[hash]' : ''}.${extension}`;
 }
