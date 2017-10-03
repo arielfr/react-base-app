@@ -1,6 +1,7 @@
 // Load transpiler to support react code
 require('babel-core/register')();
 
+const config = require('config');
 const fs = require('fs');
 const path = require('path');
 const React = require('react');
@@ -9,6 +10,9 @@ const Head = require('react-declarative-head');
 const { isDevelopment } = require('../helpers/environmentHelper');
 const merge = require('deepmerge');
 const DefaultLayout = require('../app/components/Layout');
+
+// Is the app adaptive
+const isAdaptive = config.get('adaptive');
 
 const deleteRequireCache = (path) => {
   delete require.cache[require.resolve(path)]
@@ -35,9 +39,16 @@ module.exports = (opts = {}) => {
     res.render = (pageComponent, pageProps) => {
       const pagePath = `../app/pages/${pageComponent}/index`;
       const ReactComponentPage = require(pagePath);
+      const deviceType = req.device.type;
       // Assets names to be imported on the HTML
       let scriptAssetPath = `${pageComponent.toLowerCase()}.js`;
       let styleAssetPath = `${pageComponent.toLowerCase()}.css`;
+
+      // If it is adaptive override the styles depending on the device
+      if (isAdaptive) {
+        styleAssetPath = (deviceType === 'desktop') ? `${pageComponent.toLowerCase()}.desktop.css` : `${pageComponent.toLowerCase()}.mobile.css`;
+      }
+
       let vendorAssetPath = 'vendor.js';
 
       if (isDevelopment()) {
@@ -56,7 +67,8 @@ module.exports = (opts = {}) => {
 
       // Merge the default props for layouts with the ones sended on the route
       const layoutProps = merge({
-        userAgent: req.headers['user-agent']
+        userAgent: req.headers['user-agent'],
+        device: req.device,
       }, (pageProps.layout || {}));
 
       // Remove it from the props, so its not going to be added on the pageScript

@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+router.get('/adaptive', (req, res) => {
   // Initial State
-  res.render('index', {});
+  res.render('adaptive', {});
 });
 
 module.exports = router;

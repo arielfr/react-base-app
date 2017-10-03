@@ -25,6 +25,7 @@ app.use(
   [
     // Pages
     require('./app/routes/index'),
+    require('./app/routes/adaptive'),
   ],
   require('./middleware/error-handler')
   // After Middlewares
