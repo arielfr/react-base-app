@@ -110,13 +110,7 @@ function pageEntryPoint(entry) {
   const devEntries = ['react-hot-loader/patch', 'webpack-hot-middleware/client'];
 
   if (typeof entry !== 'object') {
-    // Convert to array if is not an array
-    entry = Array.isArray(entry) ? entry : [entry];
-
-    // If it is development add the dev entries only used on development environments
-    return {
-      main: (isDevelopment()) ? devEntries.concat(entry) : entry
-    };
+    throw new Error('pageEntryPoint must receive an Object and the name of the entry needs to match the page name (folder)');
   } else if (typeof entry === 'object') {
     Object.keys(entry).forEach((pageName) => {
       // Get styles entries
