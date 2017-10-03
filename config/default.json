@@ -7,5 +7,6 @@
   },
   "device-detection": {
     "get-model": false
-  }
+  },
+  "adaptive": true
 }

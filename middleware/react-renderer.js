@@ -1,6 +1,7 @@
 // Load transpiler to support react code
 require('babel-core/register')();
 
+const config = require('config');
 const fs = require('fs');
 const path = require('path');
 const React = require('react');
@@ -10,6 +11,9 @@ const { isDevelopment } = require('../helpers/environmentHelper');
 const merge = require('deepmerge');
 const DefaultLayout = require('../app/components/Layout');
 
+// Is the app adaptive
+const isAdaptive = config.get('adaptive');
+
 const deleteRequireCache = (path) => {
   delete require.cache[require.resolve(path)]
 };
@@ -18,10 +22,10 @@ module.exports = (opts = {}) => {
   let manifestFile;
 
   if (!isDevelopment()) {
-    try {
+    if (fs.existsSync(path.join(__dirname, '../bundles/manifest.json'))) {
       manifestFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../bundles/manifest.json')));
-    } catch (e) {
-      throw new Error('Error reading manifest file: ' + e);
+    } else {
+      throw new Error('Manifest file doesnt exists');
     }
   }
 
@@ -35,9 +39,17 @@ module.exports = (opts = {}) => {
     res.render = (pageComponent, pageProps) => {
       const pagePath = `../app/pages/${pageComponent}/index`;
       const ReactComponentPage = require(pagePath);
+      const deviceType = req.device.type;
+
       // Assets names to be imported on the HTML
       let scriptAssetPath = `${pageComponent.toLowerCase()}.js`;
       let styleAssetPath = `${pageComponent.toLowerCase()}.css`;
+
+      // If it is adaptive override the styles depending on the device
+      if (isAdaptive) {
+        styleAssetPath = (deviceType === 'desktop') ? `${pageComponent.toLowerCase()}.desktop.css` : `${pageComponent.toLowerCase()}.mobile.css`;
+      }
+
       let vendorAssetPath = 'vendor.js';
 
       if (isDevelopment()) {
@@ -48,7 +60,7 @@ module.exports = (opts = {}) => {
           }
         });
       } else {
-        // Get the asset real filename
+        // Get real names from manifest file (files have hash)
         scriptAssetPath = manifestFile[scriptAssetPath] || '';
         styleAssetPath = manifestFile[styleAssetPath] || '';
         vendorAssetPath = manifestFile[vendorAssetPath] || '';
@@ -56,13 +68,19 @@ module.exports = (opts = {}) => {
 
       // Merge the default props for layouts with the ones sended on the route
       const layoutProps = merge({
-        userAgent: req.headers['user-agent']
+        userAgent: req.headers['user-agent'],
+        device: req.device,
       }, (pageProps.layout || {}));
 
       // Remove it from the props, so its not going to be added on the pageScript
       if (pageProps.layout) {
         delete pageProps.layout;
       }
+
+      // Add default props to main page component
+      pageProps = merge({
+        device: req.device,
+      }, pageProps);
 
       const LayoutElement = React.createElement(DefaultLayout, layoutProps);
       const LayoutHTML = ReactDOMServer.renderToStaticMarkup(LayoutElement);
