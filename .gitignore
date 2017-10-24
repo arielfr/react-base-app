@@ -1,3 +1,6 @@
+# ============= NPM =============
+.package-lock.json
+
 # ============= App Ignore Folders =============
 .idea/
 bundles/

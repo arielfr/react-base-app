@@ -2,7 +2,7 @@
  * Created by arey on 4/28/17.
  */
 const config = require('config');
-const logger = require('./helpers/logger')('index');
+const logger = require('winston-this')('index');
 const { isDevelopment } = require('./helpers/environmentHelper');
 const express = require('express');
 const app = express();
