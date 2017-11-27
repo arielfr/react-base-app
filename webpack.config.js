@@ -211,7 +211,7 @@ function getStyleLoader(device) {
     };
   }
 
-  const pattern = new RegExp(`\.less$`);
+  const pattern = new RegExp(`[\.less$|\.css$]`);
   extractPlugin = extractTextPlugins.filter(extract => pattern.test(extract.filename))[0];
 
   return {
