@@ -1,0 +1,41 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "max-len": [
+      "warn",
+      120,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "class-methods-use-this": "off",
+    "react/jsx-filename-extension": "off",
+    "react/no-unused-prop-types": [
+      "warn"
+    ],
+    "react/prop-types": [
+      "warn"
+    ]
+  },
+  "settings": {
+    "import/core-modules": [
+      "core-js",
+      "newrelic",
+      "prop-types",
+      "react",
+      "react-declarative-head",
+      "react-dom",
+      "react-side-effect",
+      "serialize-javascript"
+    ]
+  },
+  "parser": "babel-eslint"
+}

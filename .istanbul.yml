@@ -1,0 +1,14 @@
+verbose: false
+instrumentation:
+  root: .
+  extensions:
+    - .js
+    - .jsx
+  default-excludes: true
+  excludes:
+    - "**/*.spec.js"
+    - "services/*.js"
+  include-all-sources: false
+reporting:
+  reports:
+    - lcov

@@ -1,0 +1,2 @@
+--compilers js:babel-register \
+./tests/unit/**/*.spec.js ./app/**/*.spec.js
