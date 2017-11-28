@@ -152,7 +152,7 @@ function getStyles(pageId) {
     if (fs.existsSync(desktopPath) && fs.existsSync(mobilePath)) {
       stylesEntries.push(desktopPath, mobilePath);
     } else {
-      console.log(`You have adaptive configuration enable, you must add a index.desktop.scss and index.mobile.scss for ${pageId} on your page directory. This is just a warning, no css were build`);
+      console.log(`You have adaptive configuration enable, you must add a index.desktop.scss and index.mobile.scss for "${pageId}" on your page directory. This is just a warning, no css were build`);
     }
   } else {
     const stylePath = path.join(pageDirectory, 'styles', 'index.scss');
