@@ -1,0 +1,3 @@
+@function em($size, $context: $font-size-base-value){
+  @return #{$size/$context}em;
+}

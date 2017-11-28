@@ -3,7 +3,7 @@
  */
 const React = require('react');
 const { Component } = require('react');
-const Number = require('./components/Number/Number');
+const Number = require('../../components/Number');
 
 class App extends Component {
   constructor(props) {
