@@ -85,7 +85,7 @@ Then the render method is going to find the Page Component that inside the index
 
 #### Layout
 
-The application will load a Default Layout for the page. You can send more props to the Default Layout adding them to the props sended on res:
+The application will load a Default Layout for the page. You can send more props to the Default Layout adding them to the props sent on res:
 
 ```javascript
 res.render('index', {
@@ -121,10 +121,10 @@ config.get('specific.configuration');
 
 ## Logger
 
-This boilerplate includes a logger helper witch use **winston** to ouput on the console. To use it just:
+This boilerplate includes a logger helper witch use [**winston**](https://www.npmjs.com/package/winston-this) to ouput on the console. To use it just:
 
 ````javascript
-const logger = require('directory/helpers/logger')('log-name');
+const logger = require('winston-this')('log-name');
 
 logger.info('This is a log');
 ````
