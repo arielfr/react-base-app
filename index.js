@@ -4,10 +4,13 @@
 const config = require('config');
 const logger = require('winston-this')('index');
 const { isDevelopment } = require('./helpers/environmentHelper');
+const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 
 const port = config.get('app.port');
+
+app.use(bodyParser.json());
 
 /**
  * App Routes and Middlewares
