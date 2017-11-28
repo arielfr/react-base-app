@@ -8,7 +8,6 @@ const fs = require('fs');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CleanCSSPlugin = require('less-plugin-clean-css');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const port = config.get('app.port');
@@ -144,21 +143,21 @@ function getStyles(pageId) {
   const pageDirectory = path.join(pagesDirectory, pageId);
 
   if (isAdaptive) {
-    const desktopPath = path.join(pageDirectory, 'styles', 'index.desktop.less');
-    const mobilePath = path.join(pageDirectory, 'styles', 'index.mobile.less');
+    const desktopPath = path.join(pageDirectory, 'styles', 'index.desktop.scss');
+    const mobilePath = path.join(pageDirectory, 'styles', 'index.mobile.scss');
 
     if (fs.existsSync(desktopPath) && fs.existsSync(mobilePath)) {
       stylesEntries.push(desktopPath, mobilePath);
     } else {
-      console.log('You have adaptive configuration enable, you must add a index.desktop.less and index.mobile.less on your page directory. This is just a warning, no css were build');
+      console.log('You have adaptive configuration enable, you must add a index.desktop.scss and index.mobile.scss on your page directory. This is just a warning, no css were build');
     }
   } else {
-    const stylePath = path.join(pageDirectory, 'styles', 'index.less');
+    const stylePath = path.join(pageDirectory, 'styles', 'index.scss');
 
     if (fs.existsSync(stylePath)) {
       stylesEntries.push(stylePath);
     } else {
-      console.log('You dont have any styles file. Remember to add index.less on your page directory');
+      console.log('You dont have any styles file. Remember to add index.scss on your page directory');
     }
   }
 
@@ -171,17 +170,7 @@ function getStyles(pageId) {
  * @returns {{test: RegExp, use: Array.<string>}}
  */
 function getStyleLoader(device) {
-  let lessLoaderPlugins = [];
   let extractPlugin;
-
-  if (!isDevelopment()) {
-    lessLoaderPlugins.push(
-      new CleanCSSPlugin({
-        advanced: true,
-        minify: true
-      })
-    )
-  }
 
   // If a device is sent add the extract plugin for the specific device
   if (device) {
@@ -189,7 +178,7 @@ function getStyleLoader(device) {
     const pattern = new RegExp(`\.${device}\.`);
     extractPlugin = extractTextPlugins.filter(extract => pattern.test(extract.filename))[0];
     // Generate the device pattern for the extract text plugin
-    const loaderPattern = new RegExp(`${device}\.less$`);
+    const loaderPattern = new RegExp(`${device}\.scss$`);
 
     return {
       test: loaderPattern,
@@ -200,10 +189,7 @@ function getStyleLoader(device) {
           }, {
             loader: 'autoprefixer-loader'
           }, {
-            loader: 'less-loader',
-            options: {
-              plugins: lessLoaderPlugins
-            },
+            loader: 'sass-loader',
           }],
           fallback: 'style-loader'
         })
@@ -211,11 +197,11 @@ function getStyleLoader(device) {
     };
   }
 
-  const pattern = new RegExp(`[\.less$|\.css$]`);
+  const pattern = new RegExp(`[\.scss$|\.css$]`);
   extractPlugin = extractTextPlugins.filter(extract => pattern.test(extract.filename))[0];
 
   return {
-    test: /\.less$/,
+    test: /\.scss$/,
     use: ['css-hot-loader'].concat(
       extractPlugin.extract({
         use: [{
@@ -223,10 +209,7 @@ function getStyleLoader(device) {
         }, {
           loader: 'autoprefixer-loader'
         }, {
-          loader: 'less-loader',
-          options: {
-            plugins: lessLoaderPlugins
-          },
+          loader: 'sass-loader',
         }],
         fallback: 'style-loader'
       })
