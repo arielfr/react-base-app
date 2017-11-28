@@ -36,7 +36,7 @@ module.exports = (opts = {}) => {
      * @param pageComponent
      * @param pageProps
      */
-    res.render = (pageComponent, pageProps) => {
+    res.render = (pageComponent, pageProps = {}) => {
       const pagePath = `../app/pages/${pageComponent}/index`;
       const ReactComponentPage = require(pagePath);
       const deviceType = req.device.type;
@@ -92,9 +92,9 @@ module.exports = (opts = {}) => {
         <!DOCTYPE html>
         <html>
           <head>
+            ${Head.rewind()}
             ${styleAssetPath ? '<link rel="stylesheet" href="' + styleAssetPath + '">' : ''}
             ${vendorAssetPath ? '<script type="application/javascript" src="' + vendorAssetPath + '"></script>' : ''}
-            ${Head.rewind()}
           </head>
           <body>
             ${appHtml}
