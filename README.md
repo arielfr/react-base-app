@@ -1,6 +1,6 @@
 # React Boilerplate for SSR + HMR (React + LESS files) + Isomorphic Code + Adaptive Design (YES!)
 
-> Side Note: I'm proud to announce that it's working with React16 with Hydrate render.
+> Side Note: I'm proud to announce that it's working with React16 with hydrate.
 
 This is a boilerplate for creating a Server Side React Application with Client Side. This works using Isomorphic code between server and client side. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
 
