@@ -7,7 +7,7 @@ const { AppContainer } = require('react-hot-loader');
 
 exports.render = (Component) => {
   const pageRender = ComponentToRender => {
-    ReactDOM.render(
+    ReactDOM.hydrate(
       <AppContainer>
         <ComponentToRender {...window.__PRELOADED_STATE__} />
       </AppContainer>,

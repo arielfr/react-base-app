@@ -1,5 +1,7 @@
 # React Boilerplate for SSR + HMR (React + LESS files) + Isomorphic Code + Adaptive Design (YES!)
 
+> Side Note: I'm proud to announce that it's working with React16 with Hydrate render.
+
 This is a boilerplate for creating a Server Side React Application with Client Side. This works using Isomorphic code between server and client side. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
 
 **It counts with Adaptive Design, you only need to enable the `adaptive` configuration on the config files** (This is explain at more detail below).
@@ -156,6 +158,39 @@ req.device = {
 ```
 
 If you want to get the specific model of the device, you need to change the configuration `get-model` to `true` on `device-detection`.
+
+## Unit Testing
+
+This application is testing ready. It already includes the next dependencies:
+
+- enzyme
+- enzyme-adapter-react-16 (Adapter for React16)
+
+It also includes the setup.js (inside test folder) for executing tests of Enzyme for React16.
+
+### What do I need to do?
+
+You only need to create the tests file on the test folder or in the specific component folder. The file name must end with `*.spec.js`. Example:
+
+```
+index.spec.js
+```
+
+## Covertura
+
+If you have tests, you can have Covertura. We include the next packages for calculating the covertura:
+
+- istanbul
+
+You can configure it using the `.istanbul.yml` file
+
+## Run Tests & Covertura
+
+To run the Unit Tests you just need to run the next command:
+
+```bash
+npm run test
+```
 
 ## Scripts
 

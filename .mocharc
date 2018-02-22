@@ -1,2 +1,2 @@
---compilers js:babel-register \
+--compilers js:babel-register --require tests/setup.js \
 ./tests/unit/**/*.spec.js ./app/**/*.spec.js
