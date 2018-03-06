@@ -16,7 +16,7 @@ app.use(bodyParser.json());
  * App Routes and Middlewares
  */
 app.use(
-  '/',
+  config.get('app.basePath'),
   // Before Middlewares
   [
     require('./middleware/device-detection.js'),
@@ -38,7 +38,7 @@ app.use(
  * Api Routes and Middlewares
  */
 app.use(
-  '/api',
+  config.get('api.basePath'),
   // Before Middlewares
   [
     // Endpoints
@@ -56,5 +56,5 @@ if (!isDevelopment()) {
 }
 
 app.listen(port, () => {
-  logger.info('App working on port: ' + port);
+  logger.info(`App working on port: ${port}`);
 });
