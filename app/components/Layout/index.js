@@ -6,8 +6,8 @@ const PropTypes = require('prop-types');
 const Head = require('react-declarative-head');
 
 const Layout = (props) => {
-  const pageTitle = props.pageTitle || 'Twitter Searcher';
-  const pageDescription = props.pageDescription || 'Twitter Searcher using React Server Side Rendering';
+  const pageTitle = props.layout.pageTitle || 'Twitter Searcher';
+  const pageDescription = props.layout.pageDescription || 'Twitter Searcher using React Server Side Rendering';
 
   return (
     <div className="App">
@@ -30,8 +30,10 @@ const Layout = (props) => {
  * Prop Types
  */
 Layout.propTypes = {
-  pageTitle: PropTypes.string,
-  pageDescription: PropTypes.string,
+  layout: PropTypes.shape({
+    pageTitle: PropTypes.string,
+    pageDescription: PropTypes.string,
+  }),
 };
 
 /**
@@ -39,8 +41,10 @@ Layout.propTypes = {
  */
 
 Layout.defaultProps = {
-  pageTitle: '',
-  pageDescription: '',
+  layout: {
+    pageTitle: '',
+    pageDescription: '',
+  },
 };
 
 module.exports = Layout;

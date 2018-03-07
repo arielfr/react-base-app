@@ -68,9 +68,11 @@ module.exports = (opts = {}) => {
 
       // Merge the default props for layouts with the ones sended on the route
       const layoutProps = merge({
-        userAgent: req.headers['user-agent'],
-        device: req.device,
-      }, (pageProps.layout || {}));
+        layout: {
+          userAgent: req.headers['user-agent'],
+          device: req.device,
+        },
+      }, pageProps);
 
       // Remove it from the props, so its not going to be added on the pageScript
       if (pageProps.layout) {
