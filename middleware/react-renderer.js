@@ -95,8 +95,8 @@ module.exports = (opts = {}) => {
         <html>
           <head>
             ${Head.rewind()}
-            ${styleAssetPath ? '<link rel="stylesheet" href="' + styleAssetPath + '">' : ''}
-            ${vendorAssetPath ? '<script type="application/javascript" src="' + vendorAssetPath + '"></script>' : ''}
+            ${styleAssetPath ? '<link rel="stylesheet" href="/' + styleAssetPath + '">' : ''}
+            ${vendorAssetPath ? '<script type="application/javascript" src="/' + vendorAssetPath + '"></script>' : ''}
           </head>
           <body>
             ${appHtml}
@@ -104,7 +104,7 @@ module.exports = (opts = {}) => {
           <script type="application/javascript">
               window.__PRELOADED_STATE__ = ${JSON.stringify(pageProps)};
           </script>
-          ${scriptAssetPath ? '<script type="application/javascript" src="' + scriptAssetPath + '"></script>' : ''}
+          ${scriptAssetPath ? '<script type="application/javascript" src="/' + scriptAssetPath + '"></script>' : ''}
         </html>
       `;
 
