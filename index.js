@@ -1,4 +1,4 @@
- /**
+/**
  * Created by arey on 4/28/17.
  */
 const config = require('config');
@@ -47,12 +47,16 @@ app.use(
   // After Middlewares
 );
 
-// Serve static files
-app.use(express.static('app/assets'));
+// Serve static files - Set maxAge to 1 hour
+app.use(express.static('app/assets', {
+  maxAge: isDevelopment() ? '0' : '3600',
+}));
 
-// Serve the build bundles on production
+// Serve the build bundles on production - Set maxAge to 1 hour
 if (!isDevelopment()) {
-  app.use(express.static('bundles'));
+  app.use(express.static('bundles', {
+    maxAge: '3600',
+  }));
 }
 
 app.listen(port, () => {
