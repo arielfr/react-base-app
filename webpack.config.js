@@ -189,7 +189,10 @@ function getStyleLoader(device) {
       use: ['css-hot-loader'].concat(
         extractPlugin.extract({
           use: [{
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              minimize: !isDevelopment()
+            }
           }, {
             loader: 'autoprefixer-loader'
           }, {
@@ -209,7 +212,10 @@ function getStyleLoader(device) {
     use: ['css-hot-loader'].concat(
       extractPlugin.extract({
         use: [{
-          loader: 'css-loader'
+          loader: 'css-loader',
+          options: {
+            minimize: !isDevelopment()
+          }
         }, {
           loader: 'autoprefixer-loader'
         }, {
