@@ -49,13 +49,13 @@ app.use(
 
 // Serve static files - Set maxAge to 1 hour
 app.use(express.static('app/assets', {
-  maxAge: isDevelopment() ? '0' : '3600',
+  maxAge: isDevelopment() ? '0' : '1h',
 }));
 
 // Serve the build bundles on production - Set maxAge to 1 hour
 if (!isDevelopment()) {
   app.use(express.static('bundles', {
-    maxAge: '3600',
+    maxAge: '1h',
   }));
 }
 
