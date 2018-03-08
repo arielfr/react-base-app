@@ -55,7 +55,7 @@ app.use(express.static('app/assets', {
 // Serve the build bundles on production - Set maxAge to 1 hour
 if (!isDevelopment()) {
   app.use(express.static('bundles', {
-    maxAge: '1h',
+    maxAge: '1d',
   }));
 }
 
