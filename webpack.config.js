@@ -70,6 +70,7 @@ function getLoaders() {
     loader: 'babel-loader',
     test: /\.js?$/,
     include: path.join(baseDirectory),
+    exclude: /\/node_modules\//,
     query: {
       env: {
         development: {
