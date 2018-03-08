@@ -69,7 +69,7 @@ function getLoaders() {
   loaders.push({
     loader: 'babel-loader',
     test: /\.js?$/,
-    include: path.join(baseDirectory, '/app'),
+    include: path.join(baseDirectory),
     query: {
       env: {
         development: {
