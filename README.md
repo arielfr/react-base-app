@@ -1,8 +1,8 @@
-# React Boilerplate for SSR + HMR (React + LESS files) + Isomorphic Code + Adaptive Design (YES!)
+# React Boilerplate for SSR + HMR (React + SASS files) + Isomorphic Code + Adaptive Design (YES!)
 
 > Side Note: I'm proud to announce that it's working with React16 with hydrate.
 
-This is a boilerplate for creating a Server Side React Application with Client Side. This works using Isomorphic code between server and client side. HMR applies to React Components and **LESS** files. This application is a boilerplate, so you can use it to create your own React Application.
+This is a boilerplate for creating a Server Side React Application with Client Side. This works using Isomorphic code between server and client side. HMR applies to React Components and **SASS** files. This application is a boilerplate, so you can use it to create your own React Application.
 
 **It counts with Adaptive Design, you only need to enable the `adaptive` configuration on the config files** (This is explain at more detail below).
 
@@ -18,13 +18,13 @@ This folder contains the application, inside you will find:
 - pages: This folder needs to have the next structure
     - page-name (This is the one that is going to be render automatically by the SSR)
         - styles (This is the styles folder)
-            - index.less (Main Styles for the page) - Non Adaptive
+            - index.scss (Main Styles for the page) - Non Adaptive
         - index.js (Page that is going to be render with ReactDOM)
         
 If you want to use adaptive mode, you need to create two different styles files inside `styles` folder
 
-- index.desktop.less
-- index.mobile.less
+- index.desktop.scss
+- index.mobile.scss
 
 Depending on the device that enters the page, it will server `desktop` or `mobile` css automatically.
 
